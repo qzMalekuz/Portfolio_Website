@@ -33,7 +33,7 @@ export const AboutSection = () => (
             <div className="animate-flip leading-4.5">
               <span className="block h-4.5">Full-Stack Developer</span>
               <span className="block h-4.5">Open Source Contributor</span>
-              <span className="block h-4.5">Full-Stack Developer</span>
+              <span className="block h-4.5">FreeLancer</span>
             </div>
           </div>
         </div>
