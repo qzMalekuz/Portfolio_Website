@@ -396,8 +396,8 @@ export function App() {
                 <span className="font-medium text-(--text-primary)">
                   remotely
                 </span>
-                . I build real-time systems, role-based platforms, and Web3
-                experiences — whatever the problem needs, I figure it out.
+                . I build system designs, role-based platforms, and Web3
+                experiences.
                 <br />
                 <br />
                 Shipped{" "}
@@ -426,7 +426,7 @@ export function App() {
                 <span className="font-medium text-(--text-primary)">
                   Solana Monolith Hackathon
                 </span>
-                . Open source contributor who lets the code speak.
+                . Open source contributor.
               </p>
 
               <div className="flex flex-col gap-3">
