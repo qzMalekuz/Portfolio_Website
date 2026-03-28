@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="zafarr. (qzmalekuz) — Open Source Contributor, Full-Stack Developer. Building real-time systems, Web3 experiences, and production-grade applications." />
+    <meta name="author" content="zafarr." />
+    <meta name="keywords" content="zafarr, qzmalekuz, Full Stack Developer, Open Source, React, TypeScript, Solana, WebSockets, Portfolio" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="zafarr. | Full-Stack Developer" />
+    <meta property="og:description" content="zafarr. (qzmalekuz) — Open Source Contributor, Full-Stack Developer. Building real-time systems, Web3 experiences, and production-grade applications." />
+    <meta property="og:site_name" content="zafarr." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/102605563?v=4" />
+    <meta property="og:image:width" content="460" />
+    <meta property="og:image:height" content="460" />
+    <meta property="og:image:alt" content="zafarr. Portfolio" />
+    <meta property="og:url" content="https://zafarr.xyz" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="zafarr. | Full-Stack Developer" />
+    <meta name="twitter:description" content="zafarr. (qzmalekuz) — Open Source Contributor, Full-Stack Developer. Building real-time systems, Web3 experiences, and production-grade applications." />
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/102605563?v=4" />
+    <meta name="twitter:image:alt" content="zafarr. Portfolio" />
+    <meta name="twitter:site" content="@qzmalekuz" />
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/102605563?v=4" />
+
+    <title>zafarr. | Full-Stack Developer</title>
+
+    <script>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'light' || (!stored && !prefersDark)) {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
