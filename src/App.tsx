@@ -179,6 +179,7 @@ export function App() {
     {
       title: "Cytoscape App Store",
       org: "cytoscape",
+      image: "https://avatars.githubusercontent.com/u/956141?v=4",
       description:
         "Contributing to the web application powering the Cytoscape App Store — a plugin marketplace for the Cytoscape network visualization and analysis platform. Django-based backend with Python.",
       tech: ["Python", "Django", "JavaScript"],
@@ -188,6 +189,7 @@ export function App() {
     {
       title: "SeqTrainer",
       org: "SynBioDex",
+      image: "https://avatars.githubusercontent.com/u/972220?v=4",
       description:
         "Contributing to an ML training pipeline for SBOL (Synthetic Biology Open Language) data — enabling machine learning models to learn from standardized biological design data.",
       tech: ["Python", "ML", "Jupyter"],
@@ -321,11 +323,8 @@ export function App() {
                       rel="noopener noreferrer"
                       className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
                     >
-                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
-                        <div className="flex flex-col items-center gap-1">
-                          <GitHubIcon />
-                          <span className="text-[11px] text-(--text-muted) font-medium">{oss.org}</span>
-                        </div>
+                      <div className="w-full h-32 bg-[#1a1a1a] border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
+                        <img src={oss.image} alt={oss.org} className="w-16 h-16 rounded-lg object-cover" />
                       </div>
                       <div className="p-6 flex flex-col grow">
                         <div className="flex items-center justify-between mb-2">
