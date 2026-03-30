@@ -283,8 +283,8 @@ export function App() {
                     username="qzMalekuz"
                     year="last"
                     theme={{
-                      light: ["#fbc9c9", "#f87171", "#ef4444", "#b91c1c", "#7f1d1d"],
-                      dark:  ["#3d0f0f", "#7f1d1d", "#b91c1c", "#dc2626", "#ef4444"],
+                      light: ["#dbeafe", "#93c5fd", "#60a5fa", "#3b82f6", "#1d4ed8"],
+                      dark:  ["#0c1425", "#172554", "#1e40af", "#3b82f6", "#60a5fa"],
                     }}
                     colorScheme={isDark ? "dark" : "light"}
                     blockSize={8}
