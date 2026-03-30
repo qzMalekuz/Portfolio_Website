@@ -116,3 +116,22 @@ body {
   color: #3b82f6;
 }
 
+/* Hover wavy underline for interactive elements */
+.hover-wavy {
+  text-decoration: underline wavy transparent;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  transition: text-decoration-color 0.3s ease-out;
+}
+
+.hover-wavy:hover {
+  text-decoration-color: #3b82f6;
+}
+
+/* Auto-apply hover wavy to card titles */
+.group:hover h3 {
+  text-decoration: underline wavy #3b82f6;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
