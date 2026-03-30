@@ -116,22 +116,51 @@ body {
   color: #3b82f6;
 }
 
-/* Hover wavy underline for interactive elements */
+/* Hover wavy underline — animated sweep left to right */
 .hover-wavy {
-  text-decoration: underline wavy transparent;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1.5px;
-  transition: text-decoration-color 0.3s ease-out;
+  position: relative;
+  text-decoration: none !important;
 }
 
-.hover-wavy:hover {
-  text-decoration-color: #3b82f6;
+.hover-wavy::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 4'%3E%3Cpath d='M0 3c1 0 1-2 2-2s1 2 2 2 1-2 2-2 1 2 2 2' fill='none' stroke='%233b82f6' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 8px 4px;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.3s ease-out;
 }
 
-/* Auto-apply hover wavy to card titles */
-.group:hover h3 {
-  text-decoration: underline wavy #3b82f6;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1.5px;
+.hover-wavy:hover::after {
+  clip-path: inset(0 0 0 0);
 }
+
+/* Auto-apply animated wavy to card titles on card hover */
+.group h3 {
+  position: relative;
+}
+
+.group h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 4'%3E%3Cpath d='M0 3c1 0 1-2 2-2s1 2 2 2 1-2 2-2 1 2 2 2' fill='none' stroke='%233b82f6' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 8px 4px;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.3s ease-out;
+}
+
+.group:hover h3::after {
+  clip-path: inset(0 0 0 0);
+}
+
 
