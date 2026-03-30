@@ -2,6 +2,11 @@ import { GitHubCalendar } from 'react-github-calendar';
 import { useState, useEffect } from "react";
 import "./index.css";
 
+import chatLoBanner from "./assets/chatLo_banner.png";
+import appointmentBanner from "./assets/appointment.png";
+import solPinBanner from "./assets/solPin_banner.png";
+import monolithBanner from "./assets/monolith_banner.png";
+
 import {
   SunIcon,
   MoonIcon,
@@ -142,6 +147,7 @@ export function App() {
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/ChatLo.io",
       liveUrl: "https://chat.zafarr.xyz/",
+      image: chatLoBanner,
     },
     {
       id: "appointmentlelo",
@@ -152,6 +158,7 @@ export function App() {
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/AppointmentLelo.io",
       liveUrl: undefined as string | undefined,
+      image: appointmentBanner,
     },
     {
       id: "solpin-arcade",
@@ -162,6 +169,7 @@ export function App() {
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
       liveUrl: undefined as string | undefined,
+      image: solPinBanner,
     },
   ];
 
@@ -172,6 +180,7 @@ export function App() {
         "Built SolPin-Arcade — a retro 2D pinball game integrating Solana staking mechanics into a skill-based arcade experience. Built with Expo and React Native.",
       tech: ["Solana", "React Native", "TypeScript"],
       githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
+      image: monolithBanner,
     },
   ];
 
@@ -366,8 +375,14 @@ export function App() {
                       rel="noopener noreferrer"
                       className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
                     >
-                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
-                        <GitHubIcon />
+                      <div className="w-full h-32 overflow-hidden relative">
+                        {contrib.image ? (
+                          <img src={contrib.image} alt={contrib.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        ) : (
+                          <div className="w-full h-full bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
+                            <GitHubIcon />
+                          </div>
+                        )}
                       </div>
                       <div className="p-6 flex flex-col grow">
                         <div className="flex items-center justify-between mb-2">
