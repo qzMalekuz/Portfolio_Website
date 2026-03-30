@@ -30,10 +30,11 @@ export const AboutSection = () => (
           <span>Remote</span>
           <span className="opacity-40">•</span>
           <div className="h-4.5 overflow-hidden inline-flex flex-col relative top-[0.5px]">
-            <div className="animate-flip leading-4.5">
-              <span className="block h-4.5">Full-Stack Developer</span>
+            <div className="animate-flip-3 leading-4.5">
               <span className="block h-4.5">Open Source Contributor</span>
-              <span className="block h-4.5">FreeLancer</span>
+              <span className="block h-4.5">Full-Stack Developer</span>
+              <span className="block h-4.5">Freelancer</span>
+              <span className="block h-4.5">Open Source Contributor</span>
             </div>
           </div>
         </div>

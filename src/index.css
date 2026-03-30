@@ -58,6 +58,17 @@ body {
   animation: text-flip 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+@keyframes text-flip-3 {
+  0%, 20%   { transform: translateY(0); }
+  25%, 45%  { transform: translateY(-25%); }
+  50%, 70%  { transform: translateY(-50%); }
+  75%, 95%  { transform: translateY(-75%); }
+}
+
+.animate-flip-3 {
+  animation: text-flip-3 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
 .fade-mask {
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
