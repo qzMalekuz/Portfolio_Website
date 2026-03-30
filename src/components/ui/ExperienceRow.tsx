@@ -14,7 +14,7 @@ export const ExperienceRow = ({
   <div className="group pl-1">
     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
       <div className="flex items-center gap-3">
-        <div className="font-medium text-(--text-primary)">
+        <div className="font-medium text-(--text-primary) hover-wavy cursor-default">
           {company}
         </div>
         <div className="text-xs font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2.5 py-1 rounded-md border border-(--border-color) transition-colors duration-200 ease-out">

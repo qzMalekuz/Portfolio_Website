@@ -49,7 +49,7 @@ export const SectionTabs = ({ tabs }: { tabs: Tab[] }) => {
             onClick={() =>
               document.getElementById(tab.targetId)?.scrollIntoView({ behavior: "smooth" })
             }
-            className="relative z-10 text-[12px] font-medium px-4 py-2 text-(--text-muted) hover:text-(--text-primary) transition-colors duration-150 cursor-pointer focus-visible:outline-none tracking-wide"
+            className="relative z-10 text-[12px] font-medium px-4 py-2 text-(--text-muted) hover:text-(--text-primary) transition-colors duration-150 cursor-pointer focus-visible:outline-none tracking-wide hover-wavy"
           >
             {tab.label}
           </button>

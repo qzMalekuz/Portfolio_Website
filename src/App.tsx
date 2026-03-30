@@ -533,7 +533,7 @@ export function App() {
                     <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
                       <MailIcon />
                     </span>
-                    <span>Email</span>
+                    <span className="hover-wavy">Email</span>
                   </a>
                   <a
                     href="https://github.com/qzMalekuz"
@@ -544,7 +544,7 @@ export function App() {
                     <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
                       <GitHubIcon />
                     </span>
-                    <span>GitHub</span>
+                    <span className="hover-wavy">GitHub</span>
                   </a>
                   <a
                     href="https://x.com/qzmalekuz"
@@ -555,7 +555,7 @@ export function App() {
                     <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
                       <TwitterIcon />
                     </span>
-                    <span>Twitter</span>
+                    <span className="hover-wavy">Twitter</span>
                   </a>
                   <a
                     href="https://www.linkedin.com/in/qzmalekuz"
@@ -566,7 +566,7 @@ export function App() {
                     <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
                       <LinkedInIcon />
                     </span>
-                    <span>LinkedIn</span>
+                    <span className="hover-wavy">LinkedIn</span>
                   </a>
                 </div>
               </div>
@@ -618,7 +618,7 @@ export function App() {
                 onClick={(e) => navigateTo("/projects", e)}
                 className="group inline-flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none cursor-pointer"
               >
-                <span>All projects</span>
+                <span className="hover-wavy">All projects</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
