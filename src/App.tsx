@@ -293,7 +293,8 @@ export function App() {
               <SectionTabs
                 tabs={[
                   { label: "Projects", targetId: "projects-section" },
-                  { label: "Hackathons", targetId: "oss-section" },
+                  { label: "Open Source", targetId: "oss-section" },
+                  { label: "Hackathons", targetId: "hackathons-section" },
                 ]}
               />
             </div>
@@ -310,47 +311,6 @@ export function App() {
             </SectionMinimal>
 
             <div className="mt-16" id="oss-section">
-              <SectionMinimal title="Hackathons">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {contributions.map((contrib) => (
-                    <a
-                      key={contrib.title}
-                      href={contrib.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                    >
-                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
-                        <GitHubIcon />
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
-                            {contrib.title}
-                          </h3>
-                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                            {contrib.githubUrl && <GitHubIcon />}
-                          </div>
-                        </div>
-                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                          {contrib.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mt-auto">
-                          {contrib.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </SectionMinimal>
-
               <SectionMinimal title="Open Source">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
                   {ossContributions.map((oss) => (
@@ -381,6 +341,49 @@ export function App() {
                         </p>
                         <div className="flex flex-wrap gap-1.5 mt-auto">
                           {oss.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </SectionMinimal>
+            </div>
+
+            <div className="mt-16" id="hackathons-section">
+              <SectionMinimal title="Hackathons">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  {contributions.map((contrib) => (
+                    <a
+                      key={contrib.title}
+                      href={contrib.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+                    >
+                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
+                        <GitHubIcon />
+                      </div>
+                      <div className="p-6 flex flex-col grow">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                            {contrib.title}
+                          </h3>
+                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
+                            {contrib.githubUrl && <GitHubIcon />}
+                          </div>
+                        </div>
+                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                          {contrib.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 mt-auto">
+                          {contrib.tech.map((t) => (
                             <span
                               key={t}
                               className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
