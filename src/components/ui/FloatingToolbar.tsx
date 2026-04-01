@@ -74,8 +74,12 @@ export const FloatingToolbar = ({
             <div className="w-px h-5 bg-(--border-color) mx-0.5" />
           )}
           <button
-            onClick={item.onClick}
+            onClick={(e) => {
+              setHoveredId(null);
+              item.onClick?.(e);
+            }}
             onMouseEnter={() => handleHover(item.id)}
+            onTouchEnd={() => setTimeout(() => setHoveredId(null), 300)}
             className={`relative flex items-center justify-center w-11 h-11 rounded-xl transition-colors duration-200 outline-none cursor-pointer active:scale-[0.95] ${
               activeId === item.id
                 ? "text-(--text-primary)"
