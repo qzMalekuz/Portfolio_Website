@@ -1,6 +1,6 @@
 import React from "react";
 
-const TECH_ICONS: Record<string, { icon: string; color: string }> = {
+const TECH_ICONS: Record<string, { icon: string; color: string; url?: string }> = {
   React:        { icon: "react",       color: "#61dafb" },
   "Next.js":    { icon: "nextdotjs",   color: "#ffffff" },
   TypeScript:   { icon: "typescript",  color: "#3178c6" },
@@ -15,7 +15,7 @@ const TECH_ICONS: Record<string, { icon: string; color: string }> = {
   Docker:       { icon: "docker",      color: "#2496ed" },
   Python:       { icon: "python",      color: "#3776ab" },
   "C++":        { icon: "cplusplus",   color: "#00599c" },
-  AWS:          { icon: "amazonwebservices", color: "#ff9900" },
+  AWS:          { icon: "aws",         color: "#ff9900", url: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
   Serverless:   { icon: "serverless",  color: "#fd5750" },
   Django:       { icon: "django",      color: "#092e20" },
   FastAPI:      { icon: "fastapi",     color: "#009688" },
@@ -23,9 +23,11 @@ const TECH_ICONS: Record<string, { icon: string; color: string }> = {
 
 export const TechBadge = ({ name }: { name: string; colorClass?: string }) => {
   const meta = TECH_ICONS[name];
-  const iconUrl = meta
-    ? `https://cdn.simpleicons.org/${meta.icon}/${meta.color.replace("#", "")}`
-    : null;
+  const iconUrl = meta?.url
+    ? meta.url
+    : meta
+      ? `https://cdn.simpleicons.org/${meta.icon}/${meta.color.replace("#", "")}`
+      : null;
 
   return (
     <span
