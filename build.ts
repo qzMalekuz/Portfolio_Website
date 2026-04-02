@@ -157,6 +157,13 @@ if (existsSync(assetsSrc)) {
   }
 }
 
+// Copy _redirects for Cloudflare Pages SPA routing
+const redirectsSrc = path.join(process.cwd(), "src", "_redirects");
+if (existsSync(redirectsSrc)) {
+  await Bun.write(path.join(outdir, "_redirects"), Bun.file(redirectsSrc));
+  console.log("📋 Copied _redirects for SPA routing");
+}
+
 const end = performance.now();
 
 const outputTable = result.outputs.map((output) => ({
