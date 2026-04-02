@@ -220,6 +220,12 @@ export function App() {
     { name: "Solana", colorClass: "" },
     { name: "React Native", colorClass: "badge-react" },
     { name: "Docker", colorClass: "badge-docker" },
+    { name: "Python", colorClass: "" },
+    { name: "C++", colorClass: "" },
+    { name: "AWS", colorClass: "" },
+    { name: "Serverless", colorClass: "" },
+    { name: "Django", colorClass: "" },
+    { name: "FastAPI", colorClass: "" },
   ];
 
   const menuItems = [
