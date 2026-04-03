@@ -102,20 +102,18 @@ export const FloatingToolbar = ({
         {hoveredItem && (
           <motion.div
             key="tooltip"
-            className="absolute -top-10 left-0 px-2.5 py-1 bg-(--bg-secondary) border border-(--border-color) rounded-lg shadow-lg whitespace-nowrap z-50 pointer-events-none"
+            className="absolute -top-10 left-0 z-50 pointer-events-none"
             initial={{
               opacity: 0,
               y: 6,
               scale: 0.95,
               x: tooltipX,
-              translateX: "-50%",
             }}
             animate={{
               opacity: 1,
               y: 0,
               scale: 1,
               x: tooltipX,
-              translateX: "-50%",
             }}
             exit={{
               opacity: 0,
@@ -125,6 +123,7 @@ export const FloatingToolbar = ({
             }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
+            <div className="-translate-x-1/2 px-2.5 py-1 bg-(--bg-secondary) border border-(--border-color) rounded-lg shadow-lg whitespace-nowrap">
             <AnimatePresence mode="popLayout" initial={false} custom={direction}>
               <motion.span
                 key={hoveredItem.id}
@@ -138,6 +137,7 @@ export const FloatingToolbar = ({
                 {hoveredItem.label}
               </motion.span>
             </AnimatePresence>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

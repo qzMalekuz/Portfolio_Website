@@ -169,6 +169,7 @@ export function App() {
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
       liveUrl: undefined as string | undefined,
+      downloadApkUrl: "https://github.com/qzMalekuz/SolPin-Arcade/releases/download/v1.0/SolPin-Arcade.apk",
       image: solPinBanner,
     },
   ];
