@@ -37,7 +37,7 @@ export const FloatingToolbar = ({
   const ITEM_SIZE = 44;
   const GAP = 8;
   const PADDING = 12;
-  const SEPARATOR_WIDTH = 17;
+  const SEPARATOR_WIDTH = 13;
 
   const getItemX = (index: number) => {
     let x = PADDING + index * (ITEM_SIZE + GAP);
