@@ -157,7 +157,7 @@ export function App() {
       tech: ["React", "TypeScript", "Framer Motion", "Express", "Prisma", "PostgreSQL"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/AppointmentLelo.io",
-      liveUrl: undefined as string | undefined,
+      liveUrl: "https://appointment.zafarr.xyz/",
       image: appointmentBanner,
     },
     {
