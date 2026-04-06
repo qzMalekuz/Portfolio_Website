@@ -5,7 +5,7 @@
 }
 
 :root {
-  --bg-primary: #f0f4f8;
+  --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-tertiary: #e2e8f0;
   --text-primary: #0f172a;
@@ -21,29 +21,43 @@
   --contrib-3: #3b82f6; 
   --contrib-4: #1d4ed8; 
 
-  --premium-base: #f3f6fb;
-  --premium-surface: rgba(255, 255, 255, 0.62);
-  --premium-dot: rgba(15, 23, 42, 0.08);
-  --premium-vignette: rgba(255, 255, 255, 0.22);
+  --premium-base: #f8fafc;
+  --premium-surface: rgba(255, 255, 255, 0.8);
+  --premium-dot: rgba(0, 0, 0, 0.06);
+  --premium-vignette: rgba(255, 255, 255, 0.6);
   --premium-grid-size: 26px;
   --premium-grid-offset-y: 0px;
-  --premium-bg-start: #dce9ff;
-  --premium-bg-mid: #ebf3ff;
-  --premium-bg-end: #f9fcff;
-  --premium-tone-top: rgba(255, 255, 255, 0.62);
-  --premium-tone-bottom: rgba(206, 226, 255, 0.96);
-  --premium-accent-violet: rgba(59, 130, 246, 0.24);
-  --premium-accent-indigo: rgba(37, 99, 235, 0.19);
-  --premium-accent-cyan: rgba(34, 211, 238, 0.16);
-  --premium-accent-pink: rgba(96, 165, 250, 0.15);
-  --premium-blob-violet-strong: rgba(59, 130, 246, 0.3);
-  --premium-blob-violet-soft: rgba(59, 130, 246, 0.1);
-  --premium-blob-indigo-strong: rgba(37, 99, 235, 0.24);
-  --premium-blob-indigo-soft: rgba(37, 99, 235, 0.08);
-  --premium-blob-cyan-strong: rgba(34, 211, 238, 0.2);
-  --premium-blob-cyan-soft: rgba(34, 211, 238, 0.07);
-  --premium-blob-pink-strong: rgba(96, 165, 250, 0.2);
-  --premium-blob-pink-soft: rgba(96, 165, 250, 0.07);
+  
+  /* Primary radial glow */
+  --premium-accent-violet: rgba(59, 130, 246, 0.14);
+  /* Secondary white haze */
+  --premium-accent-cyan: rgba(255, 255, 255, 0.6);
+  /* Unused in light mode */
+  --premium-accent-indigo: transparent;
+  --premium-accent-pink: transparent;
+
+  /* Linear ambient spread */
+  --premium-tone-top: rgba(59, 130, 246, 0.05);
+  --premium-tone-bottom: rgba(59, 130, 246, 0.02);
+
+  --premium-bg-start: transparent;
+  --premium-bg-mid: transparent;
+  --premium-bg-end: transparent;
+
+  /* Blend modes for light mode */
+  --premium-blend-base: normal;
+  --premium-blend-blobs: normal;
+
+  /* Disable strong blobs in light mode */
+  --premium-blob-violet-strong: transparent;
+  --premium-blob-violet-soft: transparent;
+  --premium-blob-indigo-strong: transparent;
+  --premium-blob-indigo-soft: transparent;
+  --premium-blob-cyan-strong: transparent;
+  --premium-blob-cyan-soft: transparent;
+  --premium-blob-pink-strong: transparent;
+  --premium-blob-pink-soft: transparent;
+
 }
 
 .dark {
@@ -86,6 +100,10 @@
   --premium-blob-cyan-soft: rgba(34, 211, 238, 0.05);
   --premium-blob-pink-strong: rgba(96, 165, 250, 0.15);
   --premium-blob-pink-soft: rgba(96, 165, 250, 0.045);
+
+  /* Blend modes for dark mode */
+  --premium-blend-base: screen, overlay, soft-light, normal;
+  --premium-blend-blobs: screen;
 }
 
 html {
@@ -116,7 +134,7 @@ body {
     radial-gradient(circle at 82% 18%, var(--premium-accent-cyan), transparent 28%),
     radial-gradient(circle at 62% 72%, var(--premium-accent-pink), transparent 30%),
     linear-gradient(145deg, var(--premium-bg-start) 0%, var(--premium-bg-mid) 42%, var(--premium-bg-end) 100%);
-  background-blend-mode: screen, overlay, soft-light, normal;
+  background-blend-mode: var(--premium-blend-base);
 }
 
 .premium-background::before,
@@ -157,7 +175,7 @@ body {
     radial-gradient(circle at 78% 20%, var(--premium-accent-indigo), transparent 30%),
     radial-gradient(circle at 55% 78%, var(--premium-accent-cyan), transparent 30%),
     linear-gradient(180deg, var(--premium-tone-top) 0%, var(--premium-tone-bottom) 100%);
-  background-blend-mode: screen, overlay, soft-light, normal;
+  background-blend-mode: var(--premium-blend-base);
 }
 
 .premium-background__glows {
@@ -171,7 +189,7 @@ body {
   border-radius: 999px;
   opacity: 0.48;
   will-change: transform, opacity;
-  mix-blend-mode: screen;
+  mix-blend-mode: var(--premium-blend-blobs);
 }
 
 .premium-background__blob--violet {
