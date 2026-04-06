@@ -30,6 +30,7 @@ import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
 import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
+import { PremiumBackground } from "./components/ui/PremiumBackground";
 import { SectionTabs } from "./components/ui/SectionTabs";
 
 export function App() {
@@ -241,7 +242,9 @@ export function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
+    <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
+      <PremiumBackground />
+
       <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
         <FloatingToolbar
           items={[
@@ -272,7 +275,7 @@ export function App() {
       </nav>
 
       {currentPath === "/about" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
             <AboutSection />
             <SectionMinimal title="Technologies">
@@ -305,7 +308,7 @@ export function App() {
           </div>
         </main>
       ) : currentPath === "/projects" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
             <div className="pl-1 mb-8">
               <SectionTabs
@@ -425,7 +428,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -475,7 +478,7 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12  transition-all min-h-[80vh] pb-24">
+        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12  transition-all min-h-[80vh] pb-24">
           <header id="home" className="flex flex-col pl-1 scroll-mt-24">
             <NameFlip />
 
@@ -647,7 +650,9 @@ export function App() {
         </main>
       )}
 
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }
