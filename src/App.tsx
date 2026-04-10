@@ -4,6 +4,7 @@ import "./index.css";
 
 import chatLoBanner from "./assets/chatLo_banner.png";
 import appointmentBanner from "./assets/appointment.png";
+import appointmentRecording from "./assets/appointment-screen-recording.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 
@@ -446,9 +447,25 @@ export function App() {
                     ))}
                   </div>
 
-                  <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl mb-10 pl-1">
+                  <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl mb-8 pl-1">
                     {project.description}
                   </p>
+
+                  {project.id === "appointmentlelo" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <video
+                          src={appointmentRecording}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-auto block"
+                          style={{ maxHeight: '480px', objectFit: 'cover' }}
+                        />
+                      </div>
+                    </div>
+                  )}
 
                   <div className="flex gap-4 pl-1">
                     {project.liveUrl && (
