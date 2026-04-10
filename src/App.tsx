@@ -4,10 +4,12 @@ import "./index.css";
 
 import chatLoBanner from "./assets/chatLo_banner.png";
 import appointmentBanner from "./assets/appointment.png";
-import appointmentRecording from "./assets/appointment-screen-recording.mp4";
-import chatRecording from "./assets/chat-screen-recording.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
+import screenshot1 from "./assets/screenshot1.png";
+import screenshot2 from "./assets/screenshot2.png";
+import screenshot3 from "./assets/screenshot3.png";
+import screenshot4 from "./assets/screenshot4.png";
 
 import {
   SunIcon,
@@ -174,6 +176,24 @@ export function App() {
       liveUrl: undefined as string | undefined,
       downloadApkUrl: "https://github.com/qzMalekuz/SolPin-Arcade/releases/download/v1.0/SolPin-Arcade.apk",
       image: solPinBanner,
+      screenshots: [
+        {
+          src: screenshot1,
+          alt: "SolPin-Arcade gameplay and dashboard screenshot 1",
+        },
+        {
+          src: screenshot2,
+          alt: "SolPin-Arcade gameplay and dashboard screenshot 2",
+        },
+        {
+          src: screenshot3,
+          alt: "SolPin-Arcade gameplay and dashboard screenshot 3",
+        },
+        {
+          src: screenshot4,
+          alt: "SolPin-Arcade gameplay and dashboard screenshot 4",
+        },
+      ],
     },
   ];
 
@@ -452,11 +472,36 @@ export function App() {
                     {project.description}
                   </p>
 
+                  {project.id === "solpin-arcade" && "screenshots" in project && (
+                    <div className="mb-10 pl-1">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {(project as any).screenshots.map((shot: { src: string; alt: string }) => (
+                          <a
+                            key={shot.src}
+                            href={shot.src}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group block overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm hover:border-(--text-muted) hover:shadow-lg transition-all duration-300"
+                          >
+                            <div className="relative aspect-[4/3] overflow-hidden">
+                              <img
+                                src={shot.src}
+                                alt={shot.alt}
+                                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {(project.id === "appointmentlelo" || project.id === "chatlo") && (
                     <div className="mb-10 pl-1">
                       <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
                         <video
-                          src={project.id === "chatlo" ? chatRecording : appointmentRecording}
+                          src={project.id === "chatlo" ? "/chat-screen-recording.mp4" : "/appointment-screen-recording.mp4"}
                           autoPlay
                           loop
                           muted
