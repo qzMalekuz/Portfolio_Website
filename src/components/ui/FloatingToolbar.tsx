@@ -37,31 +37,31 @@ export const FloatingToolbar = ({
   const ITEM_SIZE = 44;
   const GAP = 8;
   const PADDING = 12;
-  const SEPARATOR_WIDTH = 13;
+  const SEPARATOR_SIZE = 13;
 
-  const getItemX = (index: number) => {
-    let x = PADDING + index * (ITEM_SIZE + GAP);
+  const getItemOffset = (index: number) => {
+    let offset = PADDING + index * (ITEM_SIZE + GAP);
     if (separator !== undefined && index > separator) {
-      x += SEPARATOR_WIDTH;
+      offset += SEPARATOR_SIZE;
     }
-    return x;
+    return offset;
   };
 
-  const bgX = hoveredItem ? getItemX(hoveredIndex) : 0;
-  const tooltipX = hoveredItem ? getItemX(hoveredIndex) + ITEM_SIZE / 2 : 0;
+  const bgOffset = hoveredItem ? getItemOffset(hoveredIndex) : 0;
+  const tooltipOffset = hoveredItem ? getItemOffset(hoveredIndex) + ITEM_SIZE / 2 : 0;
 
   return (
     <div
-      className="relative flex items-center gap-2 px-3 py-2 rounded-2xl bg-(--bg-secondary)/80 backdrop-blur-xl border border-(--border-color) shadow-lg"
+      className="relative flex flex-col items-center gap-2 rounded-2xl border border-(--border-color) bg-(--bg-secondary)/80 px-3 py-2 shadow-lg backdrop-blur-xl"
       onMouseLeave={() => setHoveredId(null)}
     >
       <AnimatePresence>
         {hoveredId && (
           <motion.div
-            className="absolute top-1/2 -translate-y-1/2 left-0 rounded-xl bg-(--bg-tertiary)"
+            className="absolute left-1/2 top-0 -translate-x-1/2 rounded-xl bg-(--bg-tertiary)"
             style={{ width: ITEM_SIZE, height: ITEM_SIZE }}
-            initial={{ opacity: 0, x: bgX, scale: 0.95 }}
-            animate={{ opacity: 1, x: bgX, scale: 1 }}
+            initial={{ opacity: 0, y: bgOffset, scale: 0.95 }}
+            animate={{ opacity: 1, y: bgOffset, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
           />
@@ -71,7 +71,7 @@ export const FloatingToolbar = ({
       {items.map((item, index) => (
         <React.Fragment key={item.id}>
           {separator !== undefined && index === separator + 1 && (
-            <div className="w-px h-5 bg-(--border-color) mx-0.5" />
+            <div className="mx-0 h-px w-5 bg-(--border-color)" />
           )}
           <button
             onClick={(e) => {
@@ -90,7 +90,7 @@ export const FloatingToolbar = ({
             {activeId === item.id && (
               <motion.div
                 layoutId="active-dot"
-                className="absolute -bottom-0.5 w-1 h-1 rounded-full bg-(--text-primary)"
+                className="absolute -right-0.5 h-1 w-1 rounded-full bg-(--text-primary)"
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
@@ -102,28 +102,28 @@ export const FloatingToolbar = ({
         {hoveredItem && (
           <motion.div
             key="tooltip"
-            className="absolute -top-10 left-0 z-50 pointer-events-none"
+            className="absolute right-full top-0 z-50 mr-3 pointer-events-none"
             initial={{
               opacity: 0,
-              y: 6,
+              x: 6,
               scale: 0.95,
-              x: tooltipX,
+              y: tooltipOffset,
             }}
             animate={{
               opacity: 1,
-              y: 0,
+              x: 0,
               scale: 1,
-              x: tooltipX,
+              y: tooltipOffset,
             }}
             exit={{
               opacity: 0,
-              y: 6,
+              x: 6,
               scale: 0.95,
               transition: { duration: 0.12 },
             }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
-            <div className="-translate-x-1/2 px-2.5 py-1 bg-(--bg-secondary) border border-(--border-color) rounded-lg shadow-lg whitespace-nowrap">
+            <div className="translate-y-1 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-2.5 py-1 shadow-lg whitespace-nowrap">
             <AnimatePresence mode="popLayout" initial={false} custom={direction}>
               <motion.span
                 key={hoveredItem.id}
