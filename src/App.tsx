@@ -8,6 +8,7 @@ import chatRecording from "./assets/chat-screen-recording.mp4";
 import appointmentRecording from "./assets/appointment-screen-recording.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
+import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
 import screenshot3 from "./assets/screenshot3.png";
@@ -222,6 +223,14 @@ export function App() {
       githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
       image: monolithBanner,
     },
+    {
+      title: "Colosseum Frontier",
+      description:
+        "Currently participating in the Colosseum Frontier online hackathon. Project is in progress, so this card links to the official hackathon homepage for now.",
+      tech: ["Solana", "Hackathon", "In Progress"],
+      externalUrl: "https://colosseum.com/frontier",
+      image: colosseumFrontierBanner,
+    },
   ];
 
   const ossContributions = [
@@ -283,7 +292,7 @@ export function App() {
     <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
       <PremiumBackground />
 
-      <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
@@ -654,7 +663,7 @@ export function App() {
                   {contributions.map((contrib) => (
                     <a
                       key={contrib.title}
-                      href={contrib.githubUrl}
+                      href={contrib.githubUrl ?? contrib.externalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
@@ -674,7 +683,7 @@ export function App() {
                             {contrib.title}
                           </h3>
                           <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                            {contrib.githubUrl && <GitHubIcon />}
+                            {contrib.githubUrl ? <GitHubIcon /> : <ExternalLinkIcon />}
                           </div>
                         </div>
                         <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
