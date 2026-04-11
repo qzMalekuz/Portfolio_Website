@@ -32,24 +32,34 @@ import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { NameFlip } from "./components/ui/NameFlip";
 import { ExperienceRow } from "./components/ui/ExperienceRow";
 import { TechBadge } from "./components/ui/TechBadge";
-import { ProjectRow } from "./components/projects/ProjectRow";
 import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
 import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 import { PremiumBackground } from "./components/ui/PremiumBackground";
-import { SectionTabs } from "./components/ui/SectionTabs";
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
   const [copied, setCopied] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
 
   useEffect(() => {
-    const handlePopState = () => setCurrentPath(window.location.pathname);
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+      setCurrentHash(window.location.hash);
+    };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  useEffect(() => {
+    if (currentPath === "/projects") {
+      window.history.replaceState({}, "", "/#projects-overview");
+      setCurrentPath("/");
+      setCurrentHash("#projects-overview");
+    }
+  }, [currentPath]);
 
   const navigateTo = (path: string, event?: React.MouseEvent) => {
     if (event) event.preventDefault();
@@ -60,6 +70,7 @@ export function App() {
       if (currentPath !== targetBase) {
         window.history.pushState({}, "", path);
         setCurrentPath(targetBase);
+        setCurrentHash(hash ? `#${hash}` : "");
         if (hash) {
           setTimeout(() => {
             document
@@ -69,6 +80,7 @@ export function App() {
         }
       } else {
         window.history.pushState({}, "", path);
+        setCurrentHash(hash ? `#${hash}` : "");
         if (hash) {
           document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
         }
@@ -76,6 +88,7 @@ export function App() {
     } else {
       window.history.pushState({}, "", path);
       setCurrentPath(path);
+      setCurrentHash("");
       window.scrollTo(0, 0);
     }
   };
@@ -261,7 +274,7 @@ export function App() {
       id: "projects",
       icon: <LayersIcon />,
       label: "Projects",
-      targetPath: "/projects",
+      targetPath: "/#projects-overview",
     },
     { id: "about", icon: <UserIcon />, label: "About", targetPath: "/about" },
   ];
@@ -287,12 +300,14 @@ export function App() {
             },
           ]}
           activeId={
-            currentPath === "/" || currentPath === ""
-              ? "home"
-              : currentPath === "/projects"
+            currentPath === "/about"
+              ? "about"
+              : currentHash === "#projects-overview" ||
+                  currentHash === "#open-source" ||
+                  currentHash === "#hackathons"
                 ? "projects"
-                : currentPath === "/about"
-                  ? "about"
+                : currentPath === "/" || currentPath === ""
+                  ? "home"
                   : undefined
           }
           separator={2}
@@ -330,124 +345,6 @@ export function App() {
                 </div>
               </div>
             </SectionMinimal>
-          </div>
-        </main>
-      ) : currentPath === "/projects" ? (
-        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
-          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
-            <div className="pl-1 mb-8">
-              <SectionTabs
-                tabs={[
-                  { label: "Projects", targetId: "projects-section" },
-                  { label: "Open Source", targetId: "oss-section" },
-                  { label: "Hackathons", targetId: "hackathons-section" },
-                ]}
-              />
-            </div>
-
-            <SectionMinimal title="Projects" id="projects-section">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {projects.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    {...project}
-                    onDetailClick={(e) => navigateTo(`/${project.id}`, e)}
-                  />
-                ))}
-              </div>
-            </SectionMinimal>
-
-            <div className="mt-16" id="oss-section">
-              <SectionMinimal title="Open Source">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {ossContributions.map((oss) => (
-                    <a
-                      key={oss.title}
-                      href={oss.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                    >
-                      <div className="w-full h-32 bg-[#1a1a1a] border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
-                        <img src={oss.image} alt={oss.org} className="w-16 h-16 rounded-lg object-cover" />
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
-                            {oss.title}
-                          </h3>
-                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                            <ExternalLinkIcon />
-                          </div>
-                        </div>
-                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                          {oss.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mt-auto">
-                          {oss.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </SectionMinimal>
-            </div>
-
-            <div className="mt-16" id="hackathons-section">
-              <SectionMinimal title="Hackathons">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {contributions.map((contrib) => (
-                    <a
-                      key={contrib.title}
-                      href={contrib.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                    >
-                      <div className="w-full h-32 overflow-hidden relative">
-                        {contrib.image ? (
-                          <img src={contrib.image} alt={contrib.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                        ) : (
-                          <div className="w-full h-full bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                            <GitHubIcon />
-                          </div>
-                        )}
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
-                            {contrib.title}
-                          </h3>
-                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                            {contrib.githubUrl && <GitHubIcon />}
-                          </div>
-                        </div>
-                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                          {contrib.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mt-auto">
-                          {contrib.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </SectionMinimal>
-            </div>
           </div>
         </main>
       ) : currentPath !== "/" &&
@@ -694,19 +591,112 @@ export function App() {
               />
             </div>
           </SectionMinimal>
-          <SectionMinimal title="Hackathons" id="hackathons">
-            <div className="flex flex-col gap-6">
-              <ExperienceRow
-                role="SolPin-Arcade"
-                company={
-                  <span className="text-[15px] font-medium text-(--text-primary)">
-                    Solana Monolith Hackathon
-                  </span>
-                }
-                duration="2026"
-              />
+
+          <div id="projects-overview" className="scroll-mt-24">
+            <SectionMinimal title="Projects">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                {projects.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    {...project}
+                    onDetailClick={(e) => navigateTo(`/${project.id}`, e)}
+                  />
+                ))}
+              </div>
+            </SectionMinimal>
+
+            <div className="mt-16" id="open-source">
+              <SectionMinimal title="Open Source">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  {ossContributions.map((oss) => (
+                    <a
+                      key={oss.title}
+                      href={oss.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+                    >
+                      <div className="w-full h-32 bg-[#1a1a1a] border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
+                        <img src={oss.image} alt={oss.org} className="w-16 h-16 rounded-lg object-cover" />
+                      </div>
+                      <div className="p-6 flex flex-col grow">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                            {oss.title}
+                          </h3>
+                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
+                            <ExternalLinkIcon />
+                          </div>
+                        </div>
+                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                          {oss.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 mt-auto">
+                          {oss.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </SectionMinimal>
             </div>
-          </SectionMinimal>
+
+            <div className="mt-16" id="hackathons">
+              <SectionMinimal title="Hackathons">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  {contributions.map((contrib) => (
+                    <a
+                      key={contrib.title}
+                      href={contrib.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+                    >
+                      <div className="w-full h-32 overflow-hidden relative">
+                        {contrib.image ? (
+                          <img src={contrib.image} alt={contrib.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        ) : (
+                          <div className="w-full h-full bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
+                            <GitHubIcon />
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-6 flex flex-col grow">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                            {contrib.title}
+                          </h3>
+                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
+                            {contrib.githubUrl && <GitHubIcon />}
+                          </div>
+                        </div>
+                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                          {contrib.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 mt-auto">
+                          {contrib.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </SectionMinimal>
+            </div>
+          </div>
         </main>
       )}
 
