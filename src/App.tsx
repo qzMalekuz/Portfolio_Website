@@ -26,6 +26,7 @@ import {
   LinkedInIcon,
   CopyIcon,
   CheckIcon,
+  DownloadIcon,
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { NameFlip } from "./components/ui/NameFlip";
@@ -176,7 +177,7 @@ export function App() {
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
       liveUrl: undefined as string | undefined,
-      downloadApkUrl: "https://github.com/qzMalekuz/SolPin-Arcade/releases/download/v1.0/SolPin-Arcade.apk",
+      downloadApkUrl: "https://github.com/qzMalekuz/SolPin-Arcade/releases/download/v2.0/Sol-Pin.Arcade.apk",
       image: solPinBanner,
       screenshots: [
         {
@@ -460,9 +461,21 @@ export function App() {
             return (
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                 <SectionMinimal title="Project Details">
-                  <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-6 pl-1">
-                    {project.title}
-                  </h1>
+                  <div className="flex items-center justify-between mb-6 pl-1 gap-4 flex-wrap sm:flex-nowrap">
+                    <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight">
+                      {project.title}
+                    </h1>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--border-color) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
+                      >
+                        <GitHubIcon /> View Source
+                      </a>
+                    )}
+                  </div>
 
                   <div className="flex flex-wrap gap-2 mb-8 pl-1">
                     {project.tech.map((t) => (
@@ -482,15 +495,12 @@ export function App() {
                       { src: screenshot4, alt: "SolPin-Arcade screenshot 4" },
                     ];
                     return (
-                      <div className="mb-10 pl-1">
-                        <div className="grid grid-cols-2 gap-4">
+                      <div className="mb-10 px-1">
+                        <div className="grid grid-cols-2 gap-6 max-w-sm">
                           {solpinScreenshots.map((shot) => (
-                            <a
+                            <div
                               key={shot.alt}
-                              href={shot.src}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group block overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm hover:border-(--text-muted) hover:shadow-lg transition-all duration-300"
+                              className="group block overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm hover:border-(--text-muted) transition-all duration-300"
                             >
                               <div className="relative aspect-[9/16] overflow-hidden">
                                 <img
@@ -500,7 +510,7 @@ export function App() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                               </div>
-                            </a>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -550,7 +560,17 @@ export function App() {
                         Visit Website <ExternalLinkIcon />
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {project.id === "solpin-arcade" && "downloadApkUrl" in project && (
+                      <a
+                        href={project.downloadApkUrl as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                      >
+                        Install APK <DownloadIcon />
+                      </a>
+                    )}
+                    {project.githubUrl && project.id !== "solpin-arcade" && (
                       <a
                         href={project.githubUrl}
                         target="_blank"
