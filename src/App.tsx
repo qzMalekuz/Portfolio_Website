@@ -216,18 +216,18 @@ export function App() {
 
   const contributions = [
     {
-      title: "Solana Monolith Hackathon",
+      title: "Solana Monolith",
       description:
         "Built SolPin-Arcade — a retro 2D pinball game integrating Solana staking mechanics into a skill-based arcade experience. Built with Expo and React Native.",
-      tech: ["Solana", "React Native", "TypeScript"],
+      tech: ["Solana", "React Native", "TypeScript", "Web3"],
       githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
       image: monolithBanner,
     },
     {
       title: "Colosseum Frontier",
       description:
-        "Currently participating in the Colosseum Frontier online hackathon. Project is in progress, so this card links to the official hackathon homepage for now.",
-      tech: ["Solana", "Hackathon", "In Progress"],
+        "Currently participating in the Colosseum Frontier online hackathon.",
+      tech: ["Solana", "TypeScript", "React", "Web3"],
       externalUrl: "https://colosseum.com/frontier",
       image: colosseumFrontierBanner,
     },
@@ -431,13 +431,13 @@ export function App() {
                               key={shot.alt}
                               className="group block overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm hover:border-(--text-muted) transition-all duration-300"
                             >
-                              <div className="relative aspect-[9/16] overflow-hidden">
+                              <div className="relative aspect-9/16 overflow-hidden">
                                 <img
                                   src={shot.src}
                                   alt={shot.alt}
                                   className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                               </div>
                             </div>
                           ))}
