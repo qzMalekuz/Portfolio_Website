@@ -60,9 +60,7 @@ export const AboutSection = () => {
           </div>
           <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-lg">
             I build things for the internet — sometimes serious, sometimes less.
-            Equally comfortable with WebSocket connections at 3am as deploying
-            contracts on Solana. If not shipping, Probably lifting heavy things and
-            putting them back down.
+            If not shipping, Probably lifting heavy.
           </p>
         </div>
       </div>
