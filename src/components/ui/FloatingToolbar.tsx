@@ -123,7 +123,7 @@ export const FloatingToolbar = ({
             }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
-            <div className="translate-y-1 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-2.5 py-1 shadow-lg whitespace-nowrap">
+            <div className="-translate-y-1/2 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-2.5 py-1 shadow-lg whitespace-nowrap">
             <AnimatePresence mode="popLayout" initial={false} custom={direction}>
               <motion.span
                 key={hoveredItem.id}
