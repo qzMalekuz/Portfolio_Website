@@ -474,30 +474,38 @@ export function App() {
                     {project.description}
                   </p>
 
-                  {project.id === "solpin-arcade" && "screenshots" in project && (
-                    <div className="mb-10 pl-1">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {(project as any).screenshots.map((shot: { src: string; alt: string }) => (
-                          <a
-                            key={shot.src}
-                            href={shot.src}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group block overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm hover:border-(--text-muted) hover:shadow-lg transition-all duration-300"
-                          >
-                            <div className="relative aspect-[4/3] overflow-hidden">
-                              <img
-                                src={shot.src}
-                                alt={shot.alt}
-                                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            </div>
-                          </a>
-                        ))}
+                  {project.id === "solpin-arcade" && (() => {
+                    const solpinScreenshots = [
+                      { src: screenshot1, alt: "SolPin-Arcade screenshot 1" },
+                      { src: screenshot2, alt: "SolPin-Arcade screenshot 2" },
+                      { src: screenshot3, alt: "SolPin-Arcade screenshot 3" },
+                      { src: screenshot4, alt: "SolPin-Arcade screenshot 4" },
+                    ];
+                    return (
+                      <div className="mb-10 pl-1">
+                        <div className="grid grid-cols-2 gap-4">
+                          {solpinScreenshots.map((shot) => (
+                            <a
+                              key={shot.alt}
+                              href={shot.src}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group block overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm hover:border-(--text-muted) hover:shadow-lg transition-all duration-300"
+                            >
+                              <div className="relative aspect-[9/16] overflow-hidden">
+                                <img
+                                  src={shot.src}
+                                  alt={shot.alt}
+                                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              </div>
+                            </a>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  })()}
 
                   {project.id === "chatlo" && (
                     <div className="mb-10 pl-1">
