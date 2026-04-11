@@ -351,6 +351,7 @@ export function App() {
                   <ProjectCard
                     key={project.id}
                     {...project}
+                    onDetailClick={(e) => navigateTo(`/${project.id}`, e)}
                   />
                 ))}
               </div>
@@ -704,44 +705,6 @@ export function App() {
                 }
                 duration="2026"
               />
-            </div>
-          </SectionMinimal>
-
-          <SectionMinimal title="Work" id="projects">
-            <div className="flex flex-col gap-1">
-              {projects.slice(0, 3).map((project) => (
-                <ProjectRow
-                  key={project.id}
-                  id={project.id}
-                  title={project.title}
-                  roles={project.roles as any}
-                  onClick={(id, e) => navigateTo(`/${id}`, e)}
-                />
-              ))}
-            </div>
-            <div className="mt-6 pl-1">
-              <a
-                href="/projects"
-                onClick={(e) => navigateTo("/projects", e)}
-                className="group inline-flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none cursor-pointer"
-              >
-                <span className="hover-wavy">All projects</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform duration-200 ease-out group-hover:translate-x-0.5"
-                >
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </a>
             </div>
           </SectionMinimal>
         </main>

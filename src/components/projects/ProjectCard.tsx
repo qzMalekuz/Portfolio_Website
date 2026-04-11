@@ -10,6 +10,7 @@ export const ProjectCard = ({
   liveUrl,
   downloadApkUrl,
   image,
+  onDetailClick,
 }: {
   id: string;
   title: string;
@@ -22,7 +23,10 @@ export const ProjectCard = ({
   onDetailClick?: (e: React.MouseEvent) => void;
 }) => {
   return (
-    <div className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full">
+    <div 
+      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+      onClick={onDetailClick}
+    >
       {image ? (
         <div className="w-full h-48 overflow-hidden relative shrink-0">
           <img
@@ -50,6 +54,7 @@ export const ProjectCard = ({
                 href={downloadApkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1.5 text-[11px] font-bold text-(--bg-primary) bg-(--text-primary) px-2.5 py-1 rounded-[6px] hover:scale-105 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
                 aria-label="Download APK"
               >
@@ -62,6 +67,7 @@ export const ProjectCard = ({
                 href={liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1 text-[11px] font-bold text-(--bg-primary) bg-(--text-primary) px-2.5 py-1 rounded-[6px] hover:scale-105 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
                 aria-label="Live Site"
               >
@@ -74,6 +80,7 @@ export const ProjectCard = ({
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded"
                 aria-label="GitHub Repository"
               >
