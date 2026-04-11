@@ -292,7 +292,7 @@ export function App() {
     <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
       <PremiumBackground />
 
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+      <nav className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 md:top-1/2 md:right-8 md:bottom-auto md:left-auto md:translate-x-0 md:-translate-y-1/2">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
