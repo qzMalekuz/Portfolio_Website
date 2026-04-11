@@ -465,16 +465,38 @@ export function App() {
                     <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight">
                       {project.title}
                     </h1>
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--border-color) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
-                      >
-                        <GitHubIcon /> View Source
-                      </a>
-                    )}
+                    <div className="flex gap-3 shrink-0">
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                        >
+                          Visit Website <ExternalLinkIcon />
+                        </a>
+                      )}
+                      {project.id === "solpin-arcade" && "downloadApkUrl" in project && (
+                        <a
+                          href={project.downloadApkUrl as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                        >
+                          Install APK <DownloadIcon />
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--border-color) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
+                        >
+                          <GitHubIcon /> View Source
+                        </a>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-8 pl-1">
@@ -496,7 +518,7 @@ export function App() {
                     ];
                     return (
                       <div className="mb-10 px-1">
-                        <div className="grid grid-cols-2 gap-6 max-w-sm">
+                        <div className="grid grid-cols-4 gap-4">
                           {solpinScreenshots.map((shot) => (
                             <div
                               key={shot.alt}
@@ -543,44 +565,10 @@ export function App() {
                           muted
                           playsInline
                           className="w-full h-auto block"
-                          style={{ maxHeight: '480px', objectFit: 'cover' }}
                         />
                       </div>
                     </div>
                   )}
-
-                  <div className="flex gap-4 pl-1">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
-                      >
-                        Visit Website <ExternalLinkIcon />
-                      </a>
-                    )}
-                    {project.id === "solpin-arcade" && "downloadApkUrl" in project && (
-                      <a
-                        href={project.downloadApkUrl as string}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
-                      >
-                        Install APK <DownloadIcon />
-                      </a>
-                    )}
-                    {project.githubUrl && project.id !== "solpin-arcade" && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--border-color) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
-                      >
-                        <GitHubIcon /> View Source
-                      </a>
-                    )}
-                  </div>
                 </SectionMinimal>
               </div>
             );
