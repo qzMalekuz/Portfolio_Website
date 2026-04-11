@@ -4,6 +4,8 @@ import "./index.css";
 
 import chatLoBanner from "./assets/chatLo_banner.png";
 import appointmentBanner from "./assets/appointment.png";
+import chatRecording from "./assets/chat-screen-recording.mp4";
+import appointmentRecording from "./assets/appointment-screen-recording.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
@@ -497,11 +499,27 @@ export function App() {
                     </div>
                   )}
 
-                  {(project.id === "appointmentlelo" || project.id === "chatlo") && (
+                  {project.id === "chatlo" && (
                     <div className="mb-10 pl-1">
                       <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
                         <video
-                          src={project.id === "chatlo" ? "/chat-screen-recording.mp4" : "/appointment-screen-recording.mp4"}
+                          src={chatRecording}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-auto block"
+                          style={{ maxHeight: '480px', objectFit: 'cover' }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {project.id === "appointmentlelo" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <video
+                          src={appointmentRecording}
                           autoPlay
                           loop
                           muted

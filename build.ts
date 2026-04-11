@@ -141,6 +141,9 @@ const result = await Bun.build({
   minify: true,
   target: "browser",
   sourcemap: "linked",
+  loader: {
+    ".mp4": "file",
+  },
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
   },
