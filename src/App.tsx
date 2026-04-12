@@ -292,7 +292,7 @@ export function App() {
     <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
       <PremiumBackground />
 
-      <nav className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 md:top-1/2 md:right-8 md:bottom-auto md:left-auto md:translate-x-0 md:-translate-y-1/2">
+      <nav className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 md:top-1/2 md:right-6 md:bottom-auto md:left-auto md:translate-x-0 md:-translate-y-1/2 lg:right-8">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
@@ -324,11 +324,11 @@ export function App() {
       </nav>
 
       {currentPath === "/about" ? (
-        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+        <main className="relative z-10 mx-auto min-h-[80vh] max-w-2xl space-y-10 px-4 py-16 pb-24 transition-all sm:px-6 sm:py-20 md:pr-28 lg:max-w-3xl lg:pr-36">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
             <AboutSection />
             <SectionMinimal title="Technologies">
-              <div className="flex flex-wrap gap-x-2 gap-y-2 pl-1 mb-8">
+              <div className="mb-8 flex flex-wrap gap-x-2 gap-y-2 pl-1">
                 {techStack.map((tech) => (
                   <TechBadge key={tech.name} {...tech} />
                 ))}
@@ -337,7 +337,7 @@ export function App() {
 
             <SectionMinimal title="GitHub">
               <div className="bg-(--bg-secondary) border border-(--border-color) rounded-2xl p-4 sm:p-5">
-                <div className="w-full flex justify-center">
+                <div className="flex w-full justify-start overflow-x-auto pb-2 sm:justify-center">
                   <GitHubCalendar
                     username="qzMalekuz"
                     year="last"
@@ -346,7 +346,7 @@ export function App() {
                       dark:  ["#0c1425", "#172554", "#1e40af", "#3b82f6", "#60a5fa"],
                     }}
                     colorScheme={isDark ? "dark" : "light"}
-                    blockSize={8}
+                    blockSize={window.innerWidth < 640 ? 7 : 8}
                     blockMargin={2}
                     fontSize={11}
                     showWeekdayLabels={["mon", "wed", "fri"]}
@@ -360,7 +360,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+        <main className="relative z-10 mx-auto min-h-[80vh] max-w-2xl space-y-10 px-4 py-16 pb-24 transition-all sm:px-6 sm:py-20 md:pr-28 lg:max-w-3xl lg:pr-36">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -368,11 +368,11 @@ export function App() {
             return (
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                 <SectionMinimal title="Project Details">
-                  <div className="flex items-center justify-between mb-6 pl-1 gap-4 flex-wrap sm:flex-nowrap">
+                  <div className="mb-6 flex flex-wrap items-center justify-between gap-4 pl-1 sm:flex-nowrap">
                     <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight">
                       {project.title}
                     </h1>
-                    <div className="flex gap-3 shrink-0">
+                    <div className="flex shrink-0 flex-wrap gap-3">
                       {project.liveUrl && (
                         <a
                           href={project.liveUrl}
@@ -425,7 +425,7 @@ export function App() {
                     ];
                     return (
                       <div className="mb-10 px-1">
-                        <div className="grid grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
                           {solpinScreenshots.map((shot) => (
                             <div
                               key={shot.alt}
@@ -482,7 +482,7 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="relative z-10 max-w-2xl mx-auto px-6 py-20 space-y-12  transition-all min-h-[80vh] pb-24">
+        <main className="relative z-10 mx-auto min-h-[80vh] max-w-2xl space-y-12 px-4 py-16 pb-24 transition-all sm:px-6 sm:py-20 md:pr-28 lg:max-w-3xl lg:pr-36">
           <header id="home" className="flex flex-col pl-1 scroll-mt-24">
             <NameFlip />
 
@@ -539,7 +539,7 @@ export function App() {
                     {copied ? <CheckIcon /> : <CopyIcon />}
                   </button>
                 </div>
-                <div className="flex gap-x-4">
+                <div className="flex flex-wrap gap-x-4 gap-y-3">
                   <a
                     href="mailto:zafarrworks@gmail.com"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"

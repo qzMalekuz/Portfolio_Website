@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ToolbarItem {
@@ -21,6 +21,17 @@ export const FloatingToolbar = ({
 }: FloatingToolbarProps) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [direction, setDirection] = useState(0);
+  const [isVertical, setIsVertical] = useState(() => window.innerWidth >= 768);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const updateOrientation = () => setIsVertical(mediaQuery.matches);
+
+    updateOrientation();
+    mediaQuery.addEventListener("change", updateOrientation);
+
+    return () => mediaQuery.removeEventListener("change", updateOrientation);
+  }, []);
 
   const handleHover = (id: string | null) => {
     if (hoveredId !== null && id !== null) {
@@ -49,19 +60,27 @@ export const FloatingToolbar = ({
 
   const bgOffset = hoveredItem ? getItemOffset(hoveredIndex) : 0;
   const tooltipOffset = hoveredItem ? getItemOffset(hoveredIndex) + ITEM_SIZE / 2 : 0;
+  const motionAxis = isVertical ? { y: bgOffset } : { x: bgOffset };
+  const tooltipMotionAxis = isVertical ? { y: tooltipOffset } : { x: tooltipOffset };
 
   return (
     <div
-      className="relative flex flex-col items-center gap-2 rounded-2xl border border-(--border-color) bg-(--bg-secondary)/80 px-3 py-2 shadow-lg backdrop-blur-xl"
+      className={`relative flex items-center rounded-2xl border border-(--border-color) bg-(--bg-secondary)/80 px-3 py-2 shadow-lg backdrop-blur-xl ${
+        isVertical ? "flex-col gap-2" : "gap-2"
+      }`}
       onMouseLeave={() => setHoveredId(null)}
     >
       <AnimatePresence>
         {hoveredId && (
           <motion.div
-            className="absolute left-1/2 top-0 -translate-x-1/2 rounded-xl bg-(--bg-tertiary)"
+            className={`absolute rounded-xl bg-(--bg-tertiary) ${
+              isVertical
+                ? "left-1/2 top-0 -translate-x-1/2"
+                : "left-0 top-1/2 -translate-y-1/2"
+            }`}
             style={{ width: ITEM_SIZE, height: ITEM_SIZE }}
-            initial={{ opacity: 0, y: bgOffset, scale: 0.95 }}
-            animate={{ opacity: 1, y: bgOffset, scale: 1 }}
+            initial={{ opacity: 0, ...motionAxis, scale: 0.95 }}
+            animate={{ opacity: 1, ...motionAxis, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
           />
@@ -71,7 +90,13 @@ export const FloatingToolbar = ({
       {items.map((item, index) => (
         <React.Fragment key={item.id}>
           {separator !== undefined && index === separator + 1 && (
-            <div className="mx-0 h-px w-5 bg-(--border-color)" />
+            <div
+              className={
+                isVertical
+                  ? "mx-0 h-px w-5 bg-(--border-color)"
+                  : "mx-0.5 h-5 w-px bg-(--border-color)"
+              }
+            />
           )}
           <button
             onClick={(e) => {
@@ -90,7 +115,9 @@ export const FloatingToolbar = ({
             {activeId === item.id && (
               <motion.div
                 layoutId="active-dot"
-                className="absolute -right-0.5 h-1 w-1 rounded-full bg-(--text-primary)"
+                className={`absolute h-1 w-1 rounded-full bg-(--text-primary) ${
+                  isVertical ? "-right-0.5" : "-bottom-0.5"
+                }`}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
@@ -102,41 +129,52 @@ export const FloatingToolbar = ({
         {hoveredItem && (
           <motion.div
             key="tooltip"
-            className="absolute right-full top-0 z-50 mr-3 pointer-events-none"
+            className={`absolute z-50 pointer-events-none ${
+              isVertical
+                ? "right-full top-0 mr-3"
+                : "left-0 -top-10"
+            }`}
             initial={{
               opacity: 0,
-              x: 6,
+              x: isVertical ? 6 : 0,
+              y: isVertical ? 0 : 6,
               scale: 0.95,
-              y: tooltipOffset,
+              ...tooltipMotionAxis,
             }}
             animate={{
               opacity: 1,
               x: 0,
+              y: 0,
               scale: 1,
-              y: tooltipOffset,
+              ...tooltipMotionAxis,
             }}
             exit={{
               opacity: 0,
-              x: 6,
+              x: isVertical ? 6 : 0,
+              y: isVertical ? 0 : 6,
               scale: 0.95,
               transition: { duration: 0.12 },
             }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
-            <div className="-translate-y-1/2 rounded-lg border border-(--border-color) bg-(--bg-secondary) px-2.5 py-1 shadow-lg whitespace-nowrap">
-            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-              <motion.span
-                key={hoveredItem.id}
-                className="text-[11px] font-medium text-(--text-primary) block"
-                custom={direction}
-                initial={{ opacity: 0, y: direction * 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: direction * -8 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              >
-                {hoveredItem.label}
-              </motion.span>
-            </AnimatePresence>
+            <div
+              className={`rounded-lg border border-(--border-color) bg-(--bg-secondary) px-2.5 py-1 shadow-lg whitespace-nowrap ${
+                isVertical ? "-translate-y-1/2" : "-translate-x-1/2"
+              }`}
+            >
+              <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+                <motion.span
+                  key={hoveredItem.id}
+                  className="block text-[11px] font-medium text-(--text-primary)"
+                  custom={direction}
+                  initial={{ opacity: 0, y: direction * 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: direction * -8 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                >
+                  {hoveredItem.label}
+                </motion.span>
+              </AnimatePresence>
             </div>
           </motion.div>
         )}

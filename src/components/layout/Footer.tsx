@@ -1,9 +1,9 @@
 import React from "react";
 
 export const Footer = () => (
-  <footer className="w-full max-w-2xl mx-auto px-6 pb-28">
+  <footer className="mx-auto w-full max-w-2xl px-4 pb-28 sm:px-6 md:pr-28 lg:max-w-3xl lg:pr-36">
     <div className="pt-12 flex flex-col items-center gap-6 border-t border-(--border-color)">
-      <div className="flex gap-6 text-xs text-(--text-muted)">
+      <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-(--text-muted) sm:gap-6">
         <a href="mailto:zafarrworks@gmail.com" className="hover:text-(--text-primary) transition-colors hover-wavy">Email</a>
         <a href="https://github.com/qzMalekuz" target="_blank" rel="noopener noreferrer" className="hover:text-(--text-primary) transition-colors hover-wavy">GitHub</a>
         <a href="https://x.com/qzmalekuz" target="_blank" rel="noopener noreferrer" className="hover:text-(--text-primary) transition-colors hover-wavy">Twitter</a>
