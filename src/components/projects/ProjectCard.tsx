@@ -44,11 +44,11 @@ export const ProjectCard = ({
       )}
 
       <div className="p-6 flex flex-col grow">
-        <div className="flex items-center justify-between mb-3 gap-4">
-          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out min-w-0">
+        <div className="mb-3">
+          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mb-2">
             {title}
           </h3>
-          <div className="flex gap-2 shrink-0 items-center">
+          <div className="flex gap-2 items-center">
             {downloadApkUrl && (
               <a
                 href={downloadApkUrl}
