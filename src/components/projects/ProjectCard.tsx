@@ -44,7 +44,7 @@ export const ProjectCard = ({
       )}
 
       <div className="p-6 flex flex-col grow">
-        <div className="flex items-start justify-between mb-3 gap-4">
+        <div className="flex items-center justify-between mb-3 gap-4">
           <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
             {title}
           </h3>

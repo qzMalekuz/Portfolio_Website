@@ -166,7 +166,7 @@ export function App() {
       title: "ChatLo.io",
       description:
         "A full-stack real-time chat application built with pure WebSockets and TypeScript. Features low-latency, bidirectional client communication with a clean React frontend. Deployed and live.",
-      tech: ["React", "TypeScript", "WebSockets", "Node.js", "Express", "Vite"],
+      tech: ["React", "TypeScript", "WebSockets", "Express"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/ChatLo.io",
       liveUrl: "https://chat.zafarr.xyz/",
@@ -177,7 +177,7 @@ export function App() {
       title: "AppointmentLelo.io",
       description:
         "A role-based appointment booking system with slot management. Features user/admin dashboards, booking flows, and a polished UI with smooth animations.",
-      tech: ["React", "TypeScript", "Framer Motion", "Express", "Prisma", "PostgreSQL"],
+      tech: ["React", "TypeScript", "Framer", "Express", "Prisma"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/AppointmentLelo.io",
       liveUrl: "https://appointment.zafarr.xyz/",
@@ -187,8 +187,8 @@ export function App() {
       id: "kodezilla",
       title: "KodeZilla.io",
       description:
-        "A full-stack competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows. Built as a monorepo with a React frontend and Express + Prisma backend.",
-      tech: ["React", "TypeScript", "Express", "PostgreSQL", "Prisma", "Zod", "JWT", "Bun"],
+        "A full-stack competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows.",
+      tech: ["React", "TypeScript", "Express", "PostgreSQL"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/KodeZilla.io",
       image: kodezillaBanner,
