@@ -9,6 +9,7 @@ import appointmentRecording from "./assets/appointment-screen-recording.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
+import kodezillaBanner from "./assets/kodezilla-banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
 import screenshot3 from "./assets/screenshot3.png";
@@ -181,6 +182,16 @@ export function App() {
       githubUrl: "https://github.com/qzMalekuz/AppointmentLelo.io",
       liveUrl: "https://appointment.zafarr.xyz/",
       image: appointmentBanner,
+    },
+    {
+      id: "kodezilla",
+      title: "KodeZilla.io",
+      description:
+        "A full-stack competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows. Built as a monorepo with a React frontend and Express + Prisma backend.",
+      tech: ["React", "TypeScript", "Express", "PostgreSQL", "Prisma", "Zod", "JWT", "Bun"],
+      roles: [{ name: "Full Stack", type: "dev" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/KodeZilla.io",
+      image: kodezillaBanner,
     },
     {
       id: "solpin-arcade",
