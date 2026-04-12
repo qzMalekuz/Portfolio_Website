@@ -165,7 +165,7 @@ export function App() {
       id: "chatlo",
       title: "ChatLo.io",
       description:
-        "A full-stack real-time chat application built with pure WebSockets and TypeScript. Features low-latency, bidirectional client communication with a clean React frontend. Deployed and live.",
+        "A real-time chat application built with pure WebSockets. Features low-latency, bidirectional client communication with a clean and smooth UI.",
       tech: ["React", "TypeScript", "WebSockets", "Express"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/ChatLo.io",
@@ -187,7 +187,7 @@ export function App() {
       id: "kodezilla",
       title: "KodeZilla.io",
       description:
-        "A full-stack competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows.",
+        "A competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows.",
       tech: ["React", "TypeScript", "Express", "PostgreSQL"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/KodeZilla.io",
