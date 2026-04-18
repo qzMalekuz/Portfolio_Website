@@ -1,6 +1,8 @@
 import React from "react";
 import { LayersIcon, GitHubIcon, ExternalLinkIcon } from "../Icons";
 
+const iconBtnClass = "inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md hover:scale-105 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) *:w-3.5 *:h-3.5";
+
 export const ProjectCard = ({
   id,
   title,
@@ -23,7 +25,7 @@ export const ProjectCard = ({
   onDetailClick?: (e: React.MouseEvent) => void;
 }) => {
   return (
-    <div 
+    <div
       className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
       onClick={onDetailClick}
     >
@@ -44,50 +46,46 @@ export const ProjectCard = ({
       )}
 
       <div className="p-6 flex flex-col grow">
-        <div className="mb-3">
-          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mb-2">
+        <div className="flex items-center gap-2 mb-3">
+          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mr-auto">
             {title}
           </h3>
-          <div className="flex gap-2 items-center">
-            {downloadApkUrl && (
-              <a
-                href={downloadApkUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-[11px] font-bold text-(--bg-primary) bg-(--text-primary) px-2.5 py-1 rounded-[6px] hover:scale-105 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
-                aria-label="Download APK"
-              >
-                <span>APK</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              </a>
-            )}
-            {liveUrl && (
-              <a
-                href={liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1 text-[11px] font-bold text-(--bg-primary) bg-(--text-primary) px-2.5 py-1 rounded-[6px] hover:scale-105 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
-                aria-label="Live Site"
-              >
-                <span>Live</span>
-                <span className="*:w-3 *:h-3 flex items-center justify-center"><ExternalLinkIcon /></span>
-              </a>
-            )}
-            {githubUrl && (
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded"
-                aria-label="GitHub Repository"
-              >
-                <GitHubIcon />
-              </a>
-            )}
-          </div>
+          {liveUrl && (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className={iconBtnClass}
+              aria-label="Live Site"
+            >
+              <ExternalLinkIcon />
+            </a>
+          )}
+          {downloadApkUrl && (
+            <a
+              href={downloadApkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className={iconBtnClass}
+              aria-label="Download APK"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </a>
+          )}
+          {githubUrl && (
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className={iconBtnClass}
+              aria-label="GitHub Repository"
+            >
+              <GitHubIcon />
+            </a>
+          )}
         </div>
 
         <p className="text-(--text-secondary) text-sm leading-relaxed mb-6 grow">

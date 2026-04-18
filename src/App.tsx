@@ -650,13 +650,13 @@ export function App() {
                         <img src={oss.image} alt={oss.org} className="w-16 h-16 rounded-lg object-cover" />
                       </div>
                       <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                        <div className="flex items-center gap-2 mb-2">
+                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mr-auto">
                             {oss.title}
                           </h3>
-                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
+                          <span className="inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md *:w-3.5 *:h-3.5">
                             <ExternalLinkIcon />
-                          </div>
+                          </span>
                         </div>
                         <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
                           {oss.description}
@@ -707,8 +707,8 @@ export function App() {
                           )}
                         </div>
                         <div className="p-6 flex flex-col grow">
-                          <div className="mb-2">
-                            <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mb-2">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mr-auto">
                               {contrib.title}
                             </h3>
                             <a
@@ -716,7 +716,7 @@ export function App() {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md hover:scale-105 transition-transform *:w-3.5 *:h-3.5"
+                              className="inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md hover:scale-105 transition-transform *:w-3.5 *:h-3.5 shrink-0"
                               aria-label="Hackathon link"
                             >
                               <ExternalLinkIcon />
