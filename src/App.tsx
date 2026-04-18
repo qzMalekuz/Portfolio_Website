@@ -680,25 +680,44 @@ export function App() {
               <SectionMinimal title="Hackathons">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
                   {contributions.map((contrib) => {
-                    const cardContent = (
-                      <>
+                    const hasInternal = "internalUrl" in contrib && contrib.internalUrl;
+                    const cardClass = "group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer";
+                    const handleCardClick = (e: React.MouseEvent) => {
+                      if (hasInternal) {
+                        navigateTo(contrib.internalUrl as string, e);
+                      } else {
+                        window.open(contrib.externalUrl, "_blank", "noopener,noreferrer");
+                      }
+                    };
+                    return (
+                      <div
+                        key={contrib.title}
+                        className={cardClass}
+                        onClick={handleCardClick}
+                      >
                         <div className="w-full h-32 overflow-hidden relative">
                           {contrib.image ? (
                             <img src={contrib.image} alt={contrib.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                           ) : (
                             <div className="w-full h-full bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                              <GitHubIcon />
+                              <ExternalLinkIcon />
                             </div>
                           )}
                         </div>
                         <div className="p-6 flex flex-col grow">
-                          <div className="flex items-center justify-between mb-2">
-                            <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                          <div className="mb-2">
+                            <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mb-2">
                               {contrib.title}
                             </h3>
-                            <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                              {"githubUrl" in contrib && contrib.githubUrl ? <GitHubIcon /> : <ExternalLinkIcon />}
-                            </div>
+                            <a
+                              href={contrib.externalUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="inline-flex items-center gap-1 text-[11px] font-bold text-(--bg-primary) bg-(--text-primary) px-2.5 py-1 rounded-[6px] hover:scale-105 transition-transform"
+                            >
+                              Hackathon <span className="*:w-3 *:h-3 flex items-center justify-center"><ExternalLinkIcon /></span>
+                            </a>
                           </div>
                           <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
                             {contrib.description}
@@ -714,27 +733,7 @@ export function App() {
                             ))}
                           </div>
                         </div>
-                      </>
-                    );
-                    const cardClass = "group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer";
-                    return "internalUrl" in contrib && contrib.internalUrl ? (
-                      <div
-                        key={contrib.title}
-                        className={cardClass}
-                        onClick={(e) => navigateTo(contrib.internalUrl as string, e)}
-                      >
-                        {cardContent}
                       </div>
-                    ) : (
-                      <a
-                        key={contrib.title}
-                        href={contrib.externalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cardClass}
-                      >
-                        {cardContent}
-                      </a>
                     );
                   })}
                 </div>
