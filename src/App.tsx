@@ -231,7 +231,8 @@ export function App() {
       description:
         "Built SolPin-Arcade — a retro 2D pinball game integrating Solana staking mechanics into a skill-based arcade experience. Built with Expo and React Native.",
       tech: ["Solana", "React Native", "TypeScript", "Web3"],
-      githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
+      externalUrl: "https://solanamobile.radiant.nexus/",
+      internalUrl: "/solpin-arcade",
       image: monolithBanner,
     },
     {
@@ -241,6 +242,13 @@ export function App() {
       tech: ["Solana", "TypeScript", "React", "Web3"],
       externalUrl: "https://colosseum.com/frontier",
       image: colosseumFrontierBanner,
+    },
+    {
+      title: "TestSprite - S2",
+      description:
+        "Participating in the TestSprite Season 2 hackathon.",
+      tech: [],
+      externalUrl: "https://www.testsprite.com/hackathon-s2",
     },
   ];
 
@@ -671,48 +679,64 @@ export function App() {
             <div className="mt-16" id="hackathons">
               <SectionMinimal title="Hackathons">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {contributions.map((contrib) => (
-                    <a
-                      key={contrib.title}
-                      href={contrib.githubUrl ?? contrib.externalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                    >
-                      <div className="w-full h-32 overflow-hidden relative">
-                        {contrib.image ? (
-                          <img src={contrib.image} alt={contrib.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                        ) : (
-                          <div className="w-full h-full bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                            <GitHubIcon />
+                  {contributions.map((contrib) => {
+                    const cardContent = (
+                      <>
+                        <div className="w-full h-32 overflow-hidden relative">
+                          {contrib.image ? (
+                            <img src={contrib.image} alt={contrib.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                          ) : (
+                            <div className="w-full h-full bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
+                              <GitHubIcon />
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-6 flex flex-col grow">
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                              {contrib.title}
+                            </h3>
+                            <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
+                              {"githubUrl" in contrib && contrib.githubUrl ? <GitHubIcon /> : <ExternalLinkIcon />}
+                            </div>
                           </div>
-                        )}
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
-                            {contrib.title}
-                          </h3>
-                          <div className="flex items-center gap-2 shrink-0 ml-2 text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                            {contrib.githubUrl ? <GitHubIcon /> : <ExternalLinkIcon />}
+                          <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                            {contrib.description}
+                          </p>
+                          <div className="flex flex-wrap gap-1.5 mt-auto">
+                            {contrib.tech.map((t) => (
+                              <span
+                                key={t}
+                                className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+                              >
+                                {t}
+                              </span>
+                            ))}
                           </div>
                         </div>
-                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                          {contrib.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mt-auto">
-                          {contrib.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
+                      </>
+                    );
+                    const cardClass = "group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer";
+                    return "internalUrl" in contrib && contrib.internalUrl ? (
+                      <div
+                        key={contrib.title}
+                        className={cardClass}
+                        onClick={(e) => navigateTo(contrib.internalUrl as string, e)}
+                      >
+                        {cardContent}
                       </div>
-                    </a>
-                  ))}
+                    ) : (
+                      <a
+                        key={contrib.title}
+                        href={contrib.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cardClass}
+                      >
+                        {cardContent}
+                      </a>
+                    );
+                  })}
                 </div>
               </SectionMinimal>
             </div>
