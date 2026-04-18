@@ -195,6 +195,16 @@ export function App() {
       image: kodezillaBanner,
     },
     {
+      id: "icebreaker",
+      title: "Icebreaker.io",
+      description:
+        "A real-time anonymous stranger-matching platform where two people share one prompt, three exchanges, and a choice: stay or vanish. Built with React, Node.js, and Socket.io for ephemeral sessions that prioritize privacy.",
+      tech: ["React", "TypeScript", "Socket.io", "Express", "Vite"],
+      roles: [{ name: "Full Stack", type: "dev" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/Icebreaker.io",
+      image: testspriteBanner,
+    },
+    {
       id: "solpin-arcade",
       title: "SolPin-Arcade",
       description:
@@ -247,9 +257,10 @@ export function App() {
     {
       title: "TestSprite - S2",
       description:
-        "Participating in the TestSprite Season 2 hackathon.",
-      tech: [],
+        "Built Icebreaker.io — a real-time anonymous stranger-matching platform where two people share one prompt, three exchanges, and a choice: stay or vanish.",
+      tech: ["React", "TypeScript", "Socket.io", "Express"],
       externalUrl: "https://www.testsprite.com/hackathon-s2",
+      internalUrl: "/icebreaker",
       image: testspriteBanner,
     },
   ];
