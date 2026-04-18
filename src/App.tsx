@@ -202,6 +202,7 @@ export function App() {
       tech: ["React", "TypeScript", "Socket.io", "Express", "Vite"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/Icebreaker.io",
+      liveUrl: "https://ice.zafarr.xyz/",
       image: testspriteBanner,
     },
     {
