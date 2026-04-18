@@ -10,6 +10,7 @@ import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
+import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
 import screenshot3 from "./assets/screenshot3.png";
@@ -249,6 +250,7 @@ export function App() {
         "Participating in the TestSprite Season 2 hackathon.",
       tech: [],
       externalUrl: "https://www.testsprite.com/hackathon-s2",
+      image: testspriteBanner,
     },
   ];
 
@@ -714,9 +716,10 @@ export function App() {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1 text-[11px] font-bold text-(--bg-primary) bg-(--text-primary) px-2.5 py-1 rounded-[6px] hover:scale-105 transition-transform"
+                              className="inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md hover:scale-105 transition-transform *:w-3.5 *:h-3.5"
+                              aria-label="Hackathon link"
                             >
-                              Hackathon <span className="*:w-3 *:h-3 flex items-center justify-center"><ExternalLinkIcon /></span>
+                              <ExternalLinkIcon />
                             </a>
                           </div>
                           <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
