@@ -186,6 +186,18 @@ export function App() {
       image: appointmentBanner,
     },
     {
+      id: "icebreaker",
+      title: "Icebreaker.io",
+      description:
+        "A real-time anonymous stranger-matching platform where two people share one prompt, three exchanges, and a choice: stay or vanish. Built with React, Node.js, and Socket.io for ephemeral sessions that prioritize privacy.",
+      tech: ["React", "TypeScript", "Socket.io", "Express", "Vite"],
+      roles: [{ name: "Full Stack", type: "dev" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/Icebreaker.io",
+      liveUrl: "https://ice.zafarr.xyz/",
+      image: testspriteBanner,
+      hidden: true,
+    },
+    {
       id: "kodezilla",
       title: "KodeZilla.io",
       description:
@@ -642,7 +654,7 @@ export function App() {
           <div id="projects-overview" className="scroll-mt-24">
             <SectionMinimal title="Projects">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {projects.map((project) => (
+                {projects.filter((p) => !("hidden" in p && p.hidden)).map((project) => (
                   <ProjectCard
                     key={project.id}
                     {...project}
