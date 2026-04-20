@@ -658,7 +658,7 @@ export function App() {
                       href="https://www.kraneapps.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xl font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight"
+                      className="text-xl font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight hover-wavy"
                     >
                       Krane Apps
                     </a>
