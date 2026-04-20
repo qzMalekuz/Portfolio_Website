@@ -6,6 +6,7 @@ import chatLoBanner from "./assets/chatLo_banner.png";
 import appointmentBanner from "./assets/appointment.png";
 import chatRecording from "./assets/chat-screen-recording.mp4";
 import appointmentRecording from "./assets/appointment-screen-recording.mp4";
+import icebreakerRecording from "./assets/icebreaker-demo-video2.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
@@ -501,6 +502,21 @@ export function App() {
                       <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
                         <video
                           src={appointmentRecording}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-auto block"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {project.id === "icebreaker" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <video
+                          src={icebreakerRecording}
                           autoPlay
                           loop
                           muted
