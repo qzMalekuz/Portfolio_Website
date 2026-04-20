@@ -6,7 +6,6 @@ import chatLoBanner from "./assets/chatLo_banner.png";
 import appointmentBanner from "./assets/appointment.png";
 import chatRecording from "./assets/chat-screen-recording.mp4";
 import appointmentRecording from "./assets/appointment-screen-recording.mp4";
-import icebreakerRecording from "./assets/icebreaker-demo-video.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
@@ -224,6 +223,18 @@ export function App() {
           alt: "SolPin-Arcade gameplay and dashboard screenshot 4",
         },
       ],
+    },
+    {
+      id: "icebreaker",
+      title: "Icebreaker.io",
+      description:
+        "A real-time anonymous stranger-matching platform where two people share one prompt, three exchanges, and a choice: stay or vanish. Built with React, Node.js, and Socket.io for ephemeral sessions that prioritize privacy.",
+      tech: ["React", "TypeScript", "Socket.io", "Express", "Vite"],
+      roles: [{ name: "Full Stack", type: "dev" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/Icebreaker.io",
+      liveUrl: "https://ice.zafarr.xyz/",
+      image: testspriteBanner,
+      showInGrid: false,
     },
   ];
 
@@ -500,20 +511,6 @@ export function App() {
                     </div>
                   )}
 
-                  {project.id === "icebreaker" && (
-                    <div className="mb-10 pl-1">
-                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
-                        <video
-                          src={icebreakerRecording}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="w-full h-auto block"
-                        />
-                      </div>
-                    </div>
-                  )}
                 </SectionMinimal>
               </div>
             );
@@ -642,7 +639,7 @@ export function App() {
           <div id="projects-overview" className="scroll-mt-24">
             <SectionMinimal title="Projects">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {projects.filter((p) => !("hidden" in p && p.hidden)).map((project) => (
+                {projects.filter((p) => !("showInGrid" in p && p.showInGrid === false)).map((project) => (
                   <ProjectCard
                     key={project.id}
                     {...project}
