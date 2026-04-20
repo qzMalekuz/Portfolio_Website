@@ -658,9 +658,9 @@ export function App() {
                       href="https://www.kraneapps.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline text-xl font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight hover-wavy"
+                      className="inline-flex text-xl font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight"
                     >
-                      Krane Apps
+                      <span className="hover-wavy">Krane Apps</span>
                     </a>
                     <span className="text-sm font-medium text-(--text-secondary)">Blockchain and Backend Developer</span>
                   </div>
