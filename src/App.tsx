@@ -656,7 +656,7 @@ export function App() {
                 }
                 duration="Sep 2025 — Present"
               />
-              <ExperienceRow
+              {/* <ExperienceRow
                 role="Full-Stack Developer"
                 company={
                   <span className="text-[15px] font-medium text-(--text-primary)">
@@ -664,7 +664,7 @@ export function App() {
                   </span>
                 }
                 duration="July 2025 — Present"
-              />
+              /> */}
             </div>
           </SectionMinimal>
 

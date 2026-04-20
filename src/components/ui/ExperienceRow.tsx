@@ -12,7 +12,7 @@ export const ExperienceRow = ({
   description?: string;
 }) => (
   <div className="group pl-1">
-    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
       <div className="flex items-center gap-3">
         <div className="font-medium text-(--text-primary) hover-wavy cursor-default">
           {company}
