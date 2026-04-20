@@ -3,7 +3,7 @@ import index from "./index.html";
 import path from "path";
 
 const server = serve({
-  port: 3001,
+  port: 3000,
   routes: {
     "/api/hello": {
       async GET(req) {
