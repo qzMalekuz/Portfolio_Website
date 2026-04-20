@@ -186,18 +186,6 @@ export function App() {
       image: appointmentBanner,
     },
     {
-      id: "icebreaker",
-      title: "Icebreaker.io",
-      description:
-        "A real-time anonymous stranger-matching platform where two people share one prompt, three exchanges, and a choice: stay or vanish. Built with React, Node.js, and Socket.io for ephemeral sessions that prioritize privacy.",
-      tech: ["React", "TypeScript", "Socket.io", "Express", "Vite"],
-      roles: [{ name: "Full Stack", type: "dev" }] as const,
-      githubUrl: "https://github.com/qzMalekuz/Icebreaker.io",
-      liveUrl: "https://ice.zafarr.xyz/",
-      image: testspriteBanner,
-      hidden: true,
-    },
-    {
       id: "kodezilla",
       title: "KodeZilla.io",
       description:
