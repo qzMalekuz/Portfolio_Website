@@ -641,6 +641,15 @@ export function App() {
           <SectionMinimal title="Experience" id="experience">
             <div className="flex flex-col gap-6">
               <ExperienceRow
+                role="Blockchain and Backend Developer"
+                company={
+                  <span className="text-[15px] font-medium text-(--text-primary)">
+                    Krane Apps
+                  </span>
+                }
+                duration="Sep 2025 — Present"
+              />
+              <ExperienceRow
                 role="Full-Stack Developer"
                 company={
                   <span className="text-[15px] font-medium text-(--text-primary)">
