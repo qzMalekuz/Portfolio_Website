@@ -10,6 +10,7 @@ import icebreakerRecording from "./assets/icebreaker-demo-video2.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
+import kraneAppsLogo from "./assets/krane-apps.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
 import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
@@ -643,9 +644,15 @@ export function App() {
               <ExperienceRow
                 role="Blockchain and Backend Developer"
                 company={
-                  <span className="text-[15px] font-medium text-(--text-primary)">
+                  <a
+                    href="https://www.kraneapps.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-[15px] font-medium text-(--text-primary) hover:text-(--text-highlight) transition-colors"
+                  >
+                    <img src={kraneAppsLogo} alt="Krane Apps" className="w-6 h-6 rounded-md" />
                     Krane Apps
-                  </span>
+                  </a>
                 }
                 duration="Sep 2025 — Present"
               />
@@ -656,7 +663,7 @@ export function App() {
                     Freelance
                   </span>
                 }
-                duration="Sep 2025 — Present"
+                duration="July 2025 — Present"
               />
             </div>
           </SectionMinimal>
