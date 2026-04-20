@@ -35,7 +35,6 @@ import {
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { NameFlip } from "./components/ui/NameFlip";
-import { ExperienceRow } from "./components/ui/ExperienceRow";
 import { TechBadge } from "./components/ui/TechBadge";
 import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
@@ -639,34 +638,40 @@ export function App() {
             </div>
           </header>
 
-          <SectionMinimal title="Experience" id="experience">
-            <div className="flex flex-col gap-6">
-              <ExperienceRow
-                role="Blockchain and Backend Developer"
-                company={
+          <section id="experience" className="py-2">
+            <h2 className="text-[11px] font-bold tracking-[0.2em] text-(--text-muted) uppercase mb-4 pl-1">EXPERIENCE</h2>
+            <div className="relative rounded-2xl border border-(--border-color) bg-(--bg-secondary) p-6 shadow-md overflow-hidden">
+              {/* subtle glow */}
+              <div className="pointer-events-none absolute -top-10 -left-10 w-48 h-48 rounded-full bg-(--text-highlight) opacity-5 blur-3xl" />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
                   <a
                     href="https://www.kraneapps.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[15px] font-medium text-(--text-primary) hover:text-(--text-highlight) transition-colors"
+                    className="shrink-0"
                   >
-                    <img src={kraneAppsLogo} alt="Krane Apps" className="w-6 h-6 rounded-md" />
-                    Krane Apps
+                    <img src={kraneAppsLogo} alt="Krane Apps" className="w-12 h-12 rounded-xl border border-(--border-color) shadow-sm" />
                   </a>
-                }
-                duration="Sep 2025 — Present"
-              />
-              {/* <ExperienceRow
-                role="Full-Stack Developer"
-                company={
-                  <span className="text-[15px] font-medium text-(--text-primary)">
-                    Freelance
-                  </span>
-                }
-                duration="July 2025 — Present"
-              /> */}
+                  <div className="flex flex-col gap-1">
+                    <a
+                      href="https://www.kraneapps.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xl font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight"
+                    >
+                      Krane Apps
+                    </a>
+                    <span className="text-sm font-medium text-(--text-secondary)">Blockchain and Backend Developer</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-sm font-mono text-(--text-muted)">Sep 2025 — Present</span>
+                </div>
+              </div>
             </div>
-          </SectionMinimal>
+          </section>
 
           <div id="projects-overview" className="scroll-mt-24">
             <SectionMinimal title="Projects">
