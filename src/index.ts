@@ -21,12 +21,25 @@ const server = serve({
 
     "/*.mp4": async (req) => {
       const url = new URL(req.url);
-      const filename = url.pathname.slice(1); // remove leading /
+      const filename = url.pathname.slice(1);
       const filePath = path.join(import.meta.dir, "assets", filename);
       const f = file(filePath);
       if (await f.exists()) {
         return new Response(f, {
           headers: { "Content-Type": "video/mp4" },
+        });
+      }
+      return new Response("Not found", { status: 404 });
+    },
+
+    "/*.mov": async (req) => {
+      const url = new URL(req.url);
+      const filename = url.pathname.slice(1);
+      const filePath = path.join(import.meta.dir, "assets", filename);
+      const f = file(filePath);
+      if (await f.exists()) {
+        return new Response(f, {
+          headers: { "Content-Type": "video/quicktime" },
         });
       }
       return new Response("Not found", { status: 404 });

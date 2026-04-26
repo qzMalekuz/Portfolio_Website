@@ -12,7 +12,7 @@ import monolithBanner from "./assets/monolith_banner.png";
 import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
 import kraneAppsLogo from "./assets/krane-apps.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
-import kodezillaRecording from "./assets/kodezilla-recording.mov";
+const kodezillaRecording = "/kodezilla-recording.mov";
 import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";

@@ -143,6 +143,7 @@ const result = await Bun.build({
   sourcemap: "linked",
   loader: {
     ".mp4": "file",
+    ".mov": "file",
   },
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
