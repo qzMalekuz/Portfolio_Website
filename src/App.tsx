@@ -12,6 +12,7 @@ import monolithBanner from "./assets/monolith_banner.png";
 import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
 import kraneAppsLogo from "./assets/krane-apps.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
+import kodezillaRecording from "./assets/kodezilla-recording.mov";
 import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
@@ -502,6 +503,21 @@ export function App() {
                       <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
                         <video
                           src={appointmentRecording}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-auto block"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {project.id === "kodezilla" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <video
+                          src={kodezillaRecording}
                           autoPlay
                           loop
                           muted
