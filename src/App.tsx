@@ -165,6 +165,16 @@ export function App() {
 
   const projects = [
     {
+      id: "kodezilla",
+      title: "KodeZilla.io",
+      description:
+        "A competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows.",
+      tech: ["React", "TypeScript", "Express", "PostgreSQL"],
+      roles: [{ name: "Full Stack", type: "dev" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/KodeZilla.io",
+      image: kodezillaBanner,
+    },
+    {
       id: "chatlo",
       title: "ChatLo.io",
       description:
@@ -185,16 +195,6 @@ export function App() {
       githubUrl: "https://github.com/qzMalekuz/AppointmentLelo.io",
       liveUrl: "https://appointment.zafarr.xyz/",
       image: appointmentBanner,
-    },
-    {
-      id: "kodezilla",
-      title: "KodeZilla.io",
-      description:
-        "A competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows.",
-      tech: ["React", "TypeScript", "Express", "PostgreSQL"],
-      roles: [{ name: "Full Stack", type: "dev" }] as const,
-      githubUrl: "https://github.com/qzMalekuz/KodeZilla.io",
-      image: kodezillaBanner,
     },
     {
       id: "solpin-arcade",
