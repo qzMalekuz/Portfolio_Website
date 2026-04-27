@@ -250,14 +250,14 @@ export function App() {
       internalUrl: "/solpin-arcade",
       image: monolithBanner,
     },
-    {
-      title: "Colosseum Frontier",
-      description:
-        "Currently participating in the Colosseum Frontier online hackathon.",
-      tech: ["Solana", "TypeScript", "React", "Web3"],
-      externalUrl: "https://colosseum.com/frontier",
-      image: colosseumFrontierBanner,
-    },
+    // {
+    //   title: "Colosseum Frontier",
+    //   description:
+    //     "Currently participating in the Colosseum Frontier online hackathon.",
+    //   tech: ["Solana", "TypeScript", "React", "Web3"],
+    //   externalUrl: "https://colosseum.com/frontier",
+    //   image: colosseumFrontierBanner,
+    // },
     {
       title: "TestSprite - S2",
       description:
