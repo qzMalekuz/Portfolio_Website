@@ -9,7 +9,7 @@ import appointmentRecording from "./assets/appointment-screen-recording.mp4";
 import icebreakerRecording from "./assets/icebreaker-demo-video2.mp4";
 import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
-import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
+// import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
 import kraneAppsLogo from "./assets/krane-apps.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
 const kodezillaRecording = "/kodezilla-recording.mov";
