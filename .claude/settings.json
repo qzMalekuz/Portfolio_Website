@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(rtk read *)"
+      "Bash(rtk read *)",
+      "Bash(bunx tsc *)"
     ]
   }
 }

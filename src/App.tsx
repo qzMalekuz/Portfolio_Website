@@ -13,6 +13,7 @@ import monolithBanner from "./assets/monolith_banner.png";
 import kraneAppsLogo from "./assets/krane-apps.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
 const kodezillaRecording = "/kodezilla-recording.mov";
+const resumePdf = "/resume.pdf";
 import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
@@ -33,6 +34,8 @@ import {
   CopyIcon,
   CheckIcon,
   DownloadIcon,
+  FileTextIcon,
+  CloseIcon,
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { NameFlip } from "./components/ui/NameFlip";
@@ -48,6 +51,21 @@ export function App() {
   const [copied, setCopied] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [currentHash, setCurrentHash] = useState(window.location.hash);
+  const [resumeOpen, setResumeOpen] = useState(false);
+
+  useEffect(() => {
+    if (!resumeOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResumeOpen(false);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [resumeOpen]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -649,6 +667,16 @@ export function App() {
                     </span>
                     <span className="hover-wavy">LinkedIn</span>
                   </a>
+                  <button
+                    type="button"
+                    onClick={() => setResumeOpen(true)}
+                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
+                  >
+                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
+                      <FileTextIcon />
+                    </span>
+                    <span className="hover-wavy">Resume</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -682,7 +710,6 @@ export function App() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                   <span className="text-sm font-mono text-(--text-muted)">Sep 2025 — Present</span>
                 </div>
               </div>
@@ -816,6 +843,51 @@ export function App() {
       <div className="relative z-10">
         <Footer />
       </div>
+
+      {resumeOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-sm"
+          onClick={() => setResumeOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Resume preview"
+        >
+          <div
+            className="relative w-full max-w-4xl h-[90vh] rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-2xl flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-(--border-color)">
+              <div className="flex items-center gap-2 text-[13px] font-medium text-(--text-primary)">
+                <FileTextIcon />
+                <span>Resume</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href={resumePdf}
+                  download="Zafarr-Malekuz-Resume.pdf"
+                  className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md px-2.5 py-1.5 border border-(--border-color) hover:border-(--text-muted) bg-(--bg-tertiary)"
+                >
+                  <DownloadIcon />
+                  <span>Download</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setResumeOpen(false)}
+                  className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
+                  aria-label="Close resume preview"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+            </div>
+            <iframe
+              src={`${resumePdf}#view=FitH`}
+              title="Resume preview"
+              className="flex-1 w-full bg-white"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
