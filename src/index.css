@@ -1,7 +1,10 @@
+/* Google Fonts must precede the Tailwind import so the @import rule stays first. */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Geist", "Inter", sans-serif;
+  --font-serif: "Instrument Serif", "Times New Roman", serif;
 }
 
 :root {
@@ -403,9 +406,14 @@ body {
   clip-path: inset(0 0 0 0);
 }
 
-/* Auto-apply animated wavy to card titles on card hover */
+/* Auto-apply animated wavy to card titles on card hover.
+   Wrap the underline only as wide as the text by letting the h3 shrink to its
+   content — otherwise the block-level h3 fills the grid column and the squiggle
+   overshoots the end of the title. */
 .group h3 {
   position: relative;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .group h3::after {

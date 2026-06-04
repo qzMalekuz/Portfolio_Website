@@ -45,8 +45,22 @@ const server = serve({
       return new Response("Not found", { status: 404 });
     },
 
+    "/*.pdf": async (req) => {
+      const url = new URL(req.url);
+      const filename = url.pathname.slice(1);
+      const filePath = path.join(import.meta.dir, "assets", filename);
+      const f = file(filePath);
+      if (await f.exists()) {
+        return new Response(f, {
+          headers: { "Content-Type": "application/pdf" },
+        });
+      }
+      return new Response("Not found", { status: 404 });
+    },
+
     // Serve index.html for all unmatched routes.
     // This must be last as it is a catch-all.
+    "/": index,
     "/*": index,
   },
 

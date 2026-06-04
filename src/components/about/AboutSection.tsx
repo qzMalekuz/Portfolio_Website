@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SectionMinimal } from "../ui/SectionMinimal";
+import { SectionRow } from "../ui/SectionRow";
 
 const avatarUrl = "https://avatars.githubusercontent.com/u/102605563?v=4";
 const BIRTHDAY = new Date(2005, 2, 12).getTime(); // March 12, 2005
@@ -18,8 +18,8 @@ export const AboutSection = () => {
   }, []);
 
   return (
-    <SectionMinimal title="About Me" id="about-section">
-      <div className="flex flex-col md:flex-row gap-8 items-start pl-1">
+    <SectionRow title="About Me" id="about-section">
+      <div className="flex flex-col md:flex-row gap-8 items-start">
         <div className="relative group w-32 h-32 shrink-0 overflow-hidden rounded-xl border border-(--border-color) hover:border-(--text-muted) transition-colors duration-200 ease-out shadow-sm hover:shadow-md bg-(--bg-tertiary)">
           <img
             src={avatarUrl}
@@ -58,12 +58,12 @@ export const AboutSection = () => {
               </div>
             </div>
           </div>
-          <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-lg">
+          <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-xl">
             I build things for the internet — sometimes serious, sometimes less.
             If not shipping, Probably lifting heavy.
           </p>
         </div>
       </div>
-    </SectionMinimal>
+    </SectionRow>
   );
 };

@@ -1,10 +1,19 @@
 import React from "react";
-import { LayersIcon, GitHubIcon, ExternalLinkIcon } from "../Icons";
+import { LayersIcon, GitHubIcon, GlobeIcon, DownloadIcon } from "../Icons";
+import { TechBadge } from "../ui/TechBadge";
 
-const iconBtnClass = "inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md hover:scale-105 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) *:w-3.5 *:h-3.5";
+const inlineLinkClass =
+  "group/link inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.15em] uppercase text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded";
 
+/**
+ * A single project rendered as a full-width horizontal row: an index number,
+ * inline action links, title, description and tech badges fill the left column,
+ * with a large preview image on the right. Stacks vertically on small screens.
+ * Clicking anywhere on the row (outside the explicit links) opens the project
+ * detail view.
+ */
 export const ProjectCard = ({
-  id,
+  index,
   title,
   description,
   tech,
@@ -14,6 +23,7 @@ export const ProjectCard = ({
   image,
   onDetailClick,
 }: {
+  index?: number;
   id: string;
   title: string;
   description: string;
@@ -26,82 +36,89 @@ export const ProjectCard = ({
 }) => {
   return (
     <div
-      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+      className="group grid grid-cols-1 gap-6 cursor-pointer md:grid-cols-2 md:gap-10 lg:gap-14"
       onClick={onDetailClick}
     >
-      {image ? (
-        <div className="w-full h-48 overflow-hidden relative shrink-0">
-          <img
-            src={image}
-            alt={title}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
-          />
-        </div>
-      ) : (
-        <div className="w-full h-48 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center shrink-0">
-          <div className="text-(--text-muted) opacity-50">
-            <LayersIcon />
+      {/* Left column — meta, title, description, badges */}
+      <div className="flex flex-col">
+        <div className="mb-4 flex items-center gap-4">
+          {index != null && (
+            <span className="text-[13px] font-mono tabular-nums text-(--text-muted)">
+              {String(index).padStart(2, "0")}
+            </span>
+          )}
+          <div className="ml-auto flex items-center gap-5">
+            {liveUrl && (
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className={inlineLinkClass}
+                aria-label="Live Site"
+              >
+                <GlobeIcon />
+              </a>
+            )}
+            {downloadApkUrl && (
+              <a
+                href={downloadApkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className={inlineLinkClass}
+                aria-label="Download APK"
+              >
+                <DownloadIcon />
+              </a>
+            )}
+            {githubUrl && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className={inlineLinkClass}
+                aria-label="GitHub Repository"
+              >
+                <GitHubIcon />
+              </a>
+            )}
           </div>
         </div>
-      )}
 
-      <div className="p-6 flex flex-col grow">
-        <div className="flex items-center gap-2 mb-3">
-          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mr-auto">
-            {title}
-          </h3>
-          {liveUrl && (
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className={iconBtnClass}
-              aria-label="Live Site"
-            >
-              <ExternalLinkIcon />
-            </a>
-          )}
-          {downloadApkUrl && (
-            <a
-              href={downloadApkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className={iconBtnClass}
-              aria-label="Download APK"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </a>
-          )}
-          {githubUrl && (
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className={iconBtnClass}
-              aria-label="GitHub Repository"
-            >
-              <GitHubIcon />
-            </a>
-          )}
-        </div>
+        <h3 className="mb-4 text-2xl font-bold tracking-tight text-(--text-primary) transition-colors duration-200 ease-out group-hover:text-(--text-highlight) sm:text-3xl">
+          {title}
+        </h3>
 
-        <p className="text-(--text-secondary) text-sm leading-relaxed mb-6 grow">
+        <p className="mb-6 max-w-md text-[15px] leading-relaxed text-(--text-secondary)">
           {description}
         </p>
 
-        <div className="flex flex-wrap gap-1.5 mt-auto">
+        <div className="mt-auto flex flex-wrap gap-2">
           {tech.map((t) => (
-            <span
-              key={t}
-              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-            >
-              {t}
-            </span>
+            <TechBadge key={t} name={t} size="sm" />
           ))}
         </div>
+      </div>
+
+      {/* Right column — preview image */}
+      <div className="overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm transition-all duration-300 ease-out group-hover:border-(--text-muted) group-hover:shadow-md">
+        {image ? (
+          <div className="relative aspect-16/10 overflow-hidden">
+            <img
+              src={image}
+              alt={title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+            />
+          </div>
+        ) : (
+          <div className="flex aspect-16/10 items-center justify-center bg-(--bg-tertiary)">
+            <div className="text-(--text-muted) opacity-50">
+              <LayersIcon />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

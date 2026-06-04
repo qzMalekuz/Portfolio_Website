@@ -11,9 +11,10 @@ import solPinBanner from "./assets/solPin_banner.png";
 import monolithBanner from "./assets/monolith_banner.png";
 // import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
 import kraneAppsLogo from "./assets/krane-apps.png";
+import talkamoreLogo from "./assets/talkamore.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
-const kodezillaRecording = "/kodezilla-recording.mov";
-const resumePdf = "/resume.pdf";
+import kodezillaRecording from "./assets/kodezilla-recording.mov";
+import resumePdf from "./assets/resume.pdf";
 import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
@@ -38,6 +39,8 @@ import {
   CloseIcon,
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
+import { SectionRow } from "./components/ui/SectionRow";
+import { ExperienceItem } from "./components/ui/ExperienceItem";
 import { NameFlip } from "./components/ui/NameFlip";
 import { TechBadge } from "./components/ui/TechBadge";
 import { ProjectCard } from "./components/projects/ProjectCard";
@@ -52,6 +55,38 @@ export function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [currentHash, setCurrentHash] = useState(window.location.hash);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // Size the GitHub calendar blocks so a full year (~53 weeks) fits without scrolling.
+  const githubBlockMargin = windowWidth < 640 ? 2 : 3;
+  const githubBlockSize = (() => {
+    // The graph lives inside <main class="max-w-5xl ..."> whose horizontal page
+    // padding is asymmetric per breakpoint, then a card with its own padding.
+    // Mirror those Tailwind values so the available width is computed exactly.
+    // [left, right] page padding (px-5 / sm:px-8 / md:px-12 md:pr-24 / lg:px-16 lg:pr-28)
+    const [padLeft, padRight] =
+      windowWidth >= 1024
+        ? [64, 112]
+        : windowWidth >= 768
+          ? [48, 96]
+          : windowWidth >= 640
+            ? [32, 32]
+            : [20, 20];
+    const cardPadding = windowWidth < 640 ? 32 : 40; // card p-4 / sm:p-5, both sides
+    const weekdayLabels = 38; // space reserved for the Mon/Wed/Fri labels column
+
+    const pageContent = Math.min(1024, windowWidth) - padLeft - padRight;
+    const available = pageContent - cardPadding - weekdayLabels;
+    const perColumn = available / 53; // 53 week columns in a year
+    const size = Math.floor(perColumn - githubBlockMargin);
+    return Math.max(7, Math.min(size, 16));
+  })();
 
   useEffect(() => {
     if (!resumeOpen) return;
@@ -378,20 +413,20 @@ export function App() {
       </nav>
 
       {currentPath === "/about" ? (
-        <main className="relative z-10 mx-auto min-h-[80vh] max-w-2xl space-y-10 px-4 py-16 pb-24 transition-all sm:px-6 sm:py-20 md:pr-28 lg:max-w-3xl lg:pr-36">
-          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
+        <main className="relative z-10 mx-auto min-h-[80vh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
+          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-12">
             <AboutSection />
-            <SectionMinimal title="Technologies">
-              <div className="mb-8 flex flex-wrap gap-x-2 gap-y-2 pl-1">
+            <SectionRow title="Technologies">
+              <div className="flex flex-wrap gap-x-2 gap-y-2">
                 {techStack.map((tech) => (
                   <TechBadge key={tech.name} {...tech} />
                 ))}
               </div>
-            </SectionMinimal>
+            </SectionRow>
 
-            <SectionMinimal title="GitHub">
+            <SectionRow title="GitHub">
               <div className="bg-(--bg-secondary) border border-(--border-color) rounded-2xl p-4 sm:p-5">
-                <div className="flex w-full justify-start overflow-x-auto pb-2 sm:justify-center">
+                <div className="flex w-full justify-start overflow-x-auto pb-2 sm:justify-center sm:overflow-x-visible">
                   <GitHubCalendar
                     username="qzMalekuz"
                     year="last"
@@ -400,21 +435,21 @@ export function App() {
                       dark:  ["#0c1425", "#172554", "#1e40af", "#3b82f6", "#60a5fa"],
                     }}
                     colorScheme={isDark ? "dark" : "light"}
-                    blockSize={window.innerWidth < 640 ? 7 : 8}
-                    blockMargin={2}
-                    fontSize={11}
+                    blockSize={githubBlockSize}
+                    blockMargin={githubBlockMargin}
+                    fontSize={windowWidth < 640 ? 11 : 14}
                     showWeekdayLabels={["mon", "wed", "fri"]}
                   />
                 </div>
               </div>
-            </SectionMinimal>
+            </SectionRow>
           </div>
         </main>
       ) : currentPath !== "/" &&
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="relative z-10 mx-auto min-h-[80vh] max-w-2xl space-y-10 px-4 py-16 pb-24 transition-all sm:px-6 sm:py-20 md:pr-28 lg:max-w-3xl lg:pr-36">
+        <main className="relative z-10 mx-auto min-h-[80vh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -567,33 +602,46 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="relative z-10 mx-auto min-h-[80vh] max-w-2xl space-y-12 px-4 py-16 pb-24 transition-all sm:px-6 sm:py-20 md:pr-28 lg:max-w-3xl lg:pr-36">
-          <header id="home" className="flex flex-col pl-1 scroll-mt-24">
+        <main className="relative z-10 mx-auto min-h-[80vh] max-w-5xl space-y-16 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 lg:px-16">
+          <header id="home" className="scroll-mt-24">
+            <div className="flex flex-col">
             <NameFlip />
 
             <div className="flex flex-col gap-6 mt-4">
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
-                Full-stack developer working{" "}
+                Full-stack &amp; mobile developer working{" "}
                 <span className="font-medium text-(--text-primary)">
                   remotely
                 </span>
-                . I build system designs, role-based platforms, and Web3
-                experiences.
+                . I ship production apps end-to-end — from system design and
+                role-based platforms to{" "}
+                <span className="font-medium text-(--text-primary)">
+                  Google Play
+                </span>{" "}
+                and the{" "}
+                <span className="font-medium text-(--text-primary)">
+                  App Store
+                </span>
+                .
                 <br />
                 <br />
-                Shipped{" "}
+                My apps have earned{" "}
+                <span className="font-medium text-(--text-primary)">
+                  10k+ reviews
+                </span>{" "}
+                and generated{" "}
+                <span className="font-medium text-(--text-primary)">
+                  $1,000+
+                </span>{" "}
+                across the dApp stores. Currently building{" "}
                 <a
-                  href="https://chat.zafarr.xyz/"
+                  href="https://talkamore.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium wavy-link"
                 >
-                  ChatLo.io
-                </a>{" "}
-                — a real-time chat app powered by pure{" "}
-                <span className="font-medium text-(--text-primary)">
-                  WebSockets
-                </span>
+                  Talkamore
+                </a>
                 , and built{" "}
                 <a
                   href="https://github.com/qzMalekuz/SolPin-Arcade"
@@ -680,104 +728,120 @@ export function App() {
                 </div>
               </div>
             </div>
+            </div>
           </header>
 
-          <section id="experience" className="py-2">
-            <h2 className="text-[11px] font-bold tracking-[0.2em] text-(--text-muted) uppercase mb-4 pl-1">EXPERIENCE</h2>
-            <div className="relative rounded-2xl border border-(--border-color) bg-(--bg-secondary) p-6 shadow-md overflow-hidden">
-              {/* subtle glow */}
-              <div className="pointer-events-none absolute -top-10 -left-10 w-48 h-48 rounded-full bg-(--text-highlight) opacity-5 blur-3xl" />
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <a
-                    href="https://www.kraneapps.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="shrink-0"
-                  >
-                    <img src={kraneAppsLogo} alt="Krane Apps" className="w-12 h-12 rounded-xl border border-(--border-color) shadow-sm" />
-                  </a>
-                  <div className="flex flex-col gap-1">
-                    <a
-                      href="https://www.kraneapps.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex text-xl font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight"
-                    >
-                      <span className="hover-wavy">Krane Apps</span>
-                    </a>
-                    <span className="text-sm font-medium text-(--text-secondary)">Blockchain and Backend Developer</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-sm font-mono text-(--text-muted)">Sep 2025 — Present</span>
-                </div>
-              </div>
+          <SectionRow title="Experience" id="experience">
+            <div className="flex flex-col gap-8 scroll-mt-24">
+              <ExperienceItem
+                logo={talkamoreLogo}
+                company="Talkamore"
+                role="Founding Engineer"
+                href="https://talkamore.com/"
+                period="Apr 2026 — Present"
+                location="Remote"
+                bullets={[
+                  "Founding engineer building the product end-to-end across web and mobile.",
+                  "Owning system design and the core backend, with a focus on scalability and real-time features.",
+                  "Shipping production features in a fast-moving early-stage team.",
+                ]}
+              />
+
+              <div className="h-px w-full bg-(--border-color)" />
+
+              <ExperienceItem
+                logo={kraneAppsLogo}
+                company="Krane Apps"
+                role="Blockchain and Backend Developer"
+                href="https://www.kraneapps.com/"
+                period="Sep 2025 — Apr 2026"
+                location="Remote"
+                bullets={[
+                  "Building backend services and on-chain integrations for client products.",
+                  "Working across Web3 tooling and Solana program interactions.",
+                  "Delivering APIs and data flows that power web and mobile clients.",
+                ]}
+              />
             </div>
-          </section>
+          </SectionRow>
 
           <div id="projects-overview" className="scroll-mt-24">
-            <SectionMinimal title="Projects">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {projects.filter((p) => !("showInGrid" in p && p.showInGrid === false)).map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    {...project}
-                    onDetailClick={(e) => navigateTo(`/${project.id}`, e)}
-                  />
-                ))}
+            <SectionRow title="Projects">
+              <div className="flex flex-col">
+                {projects
+                  .filter((p) => !("showInGrid" in p && p.showInGrid === false))
+                  .map((project, i) => (
+                    <div key={project.id}>
+                      {i > 0 && (
+                        <div className="my-10 h-px w-full bg-(--border-color)" />
+                      )}
+                      <ProjectCard
+                        {...project}
+                        index={i + 1}
+                        onDetailClick={(e) => navigateTo(`/${project.id}`, e)}
+                      />
+                    </div>
+                  ))}
               </div>
-            </SectionMinimal>
+            </SectionRow>
 
-            <div className="mt-16" id="open-source">
-              <SectionMinimal title="Open Source">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {ossContributions.map((oss) => (
-                    <a
-                      key={oss.title}
-                      href={oss.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                    >
-                      <div className="w-full h-32 bg-[#1a1a1a] border-b border-(--border-color) overflow-hidden relative flex items-center justify-center">
-                        <img src={oss.image} alt={oss.org} className="w-16 h-16 rounded-lg object-cover" />
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mr-auto">
+            <div className="mt-24" id="open-source">
+              <SectionRow title="Open Source">
+                <div className="flex flex-col">
+                  {ossContributions.map((oss, i) => (
+                    <div key={oss.title}>
+                      {i > 0 && (
+                        <div className="my-10 h-px w-full bg-(--border-color)" />
+                      )}
+                      <a
+                        href={oss.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-10 lg:gap-14"
+                      >
+                        {/* Left — meta, title, description, badges */}
+                        <div className="flex flex-col">
+                          <div className="mb-4 flex items-center gap-4">
+                            <span className="text-[13px] font-mono tabular-nums text-(--text-muted)">
+                              {String(i + 1).padStart(2, "0")}
+                            </span>
+                            <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.15em] uppercase text-(--text-muted) transition-colors duration-200 ease-out group-hover:text-(--text-primary)">
+                              <GitHubIcon />
+                              <span className="hover-wavy">GitHub</span>
+                            </span>
+                          </div>
+                          <h3 className="mb-4 text-2xl font-bold tracking-tight text-(--text-primary) transition-colors duration-200 ease-out group-hover:text-(--text-highlight) sm:text-3xl">
                             {oss.title}
                           </h3>
-                          <span className="inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md *:w-3.5 *:h-3.5">
-                            <ExternalLinkIcon />
-                          </span>
+                          <p className="mb-6 max-w-md text-[15px] leading-relaxed text-(--text-secondary)">
+                            {oss.description}
+                          </p>
+                          <div className="mt-auto flex flex-wrap gap-2">
+                            {oss.tech.map((t) => (
+                              <TechBadge key={t} name={t} size="sm" />
+                            ))}
+                          </div>
                         </div>
-                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                          {oss.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mt-auto">
-                          {oss.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                            >
-                              {t}
-                            </span>
-                          ))}
+                        {/* Right — org logo */}
+                        <div className="flex aspect-16/10 items-center justify-center overflow-hidden rounded-2xl border border-(--border-color) bg-[#1a1a1a] shadow-sm transition-all duration-300 ease-out group-hover:border-(--text-muted) group-hover:shadow-md">
+                          <img
+                            src={oss.image}
+                            alt={oss.org}
+                            className="h-20 w-20 rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                          />
                         </div>
-                      </div>
-                    </a>
+                      </a>
+                    </div>
                   ))}
                 </div>
-              </SectionMinimal>
+              </SectionRow>
             </div>
 
-            <div className="mt-16" id="hackathons">
-              <SectionMinimal title="Hackathons">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {contributions.map((contrib) => {
+            <div className="mt-24" id="hackathons">
+              <SectionRow title="Hackathons">
+                <div className="flex flex-col">
+                  {contributions.map((contrib, i) => {
                     const hasInternal = "internalUrl" in contrib && contrib.internalUrl;
-                    const cardClass = "group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer";
                     const handleCardClick = (e: React.MouseEvent) => {
                       if (hasInternal) {
                         navigateTo(contrib.internalUrl as string, e);
@@ -786,55 +850,66 @@ export function App() {
                       }
                     };
                     return (
-                      <div
-                        key={contrib.title}
-                        className={cardClass}
-                        onClick={handleCardClick}
-                      >
-                        <div className="w-full h-32 overflow-hidden relative">
-                          {contrib.image ? (
-                            <img src={contrib.image} alt={contrib.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                          ) : (
-                            <div className="w-full h-full bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                              <ExternalLinkIcon />
+                      <div key={contrib.title}>
+                        {i > 0 && (
+                          <div className="my-10 h-px w-full bg-(--border-color)" />
+                        )}
+                        <div
+                          className="group grid grid-cols-1 gap-6 cursor-pointer md:grid-cols-2 md:gap-10 lg:gap-14"
+                          onClick={handleCardClick}
+                        >
+                          {/* Left — meta, title, description, badges */}
+                          <div className="flex flex-col">
+                            <div className="mb-4 flex items-center gap-4">
+                              <span className="text-[13px] font-mono tabular-nums text-(--text-muted)">
+                                {String(i + 1).padStart(2, "0")}
+                              </span>
+                              <a
+                                href={contrib.externalUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="group/link ml-auto inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.15em] uppercase text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded"
+                                aria-label="Hackathon link"
+                              >
+                                <ExternalLinkIcon />
+                                <span className="hover-wavy">Visit</span>
+                              </a>
                             </div>
-                          )}
-                        </div>
-                        <div className="p-6 flex flex-col grow">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out mr-auto">
+                            <h3 className="mb-4 text-2xl font-bold tracking-tight text-(--text-primary) transition-colors duration-200 ease-out group-hover:text-(--text-highlight) sm:text-3xl">
                               {contrib.title}
                             </h3>
-                            <a
-                              href={contrib.externalUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center justify-center text-(--bg-primary) bg-(--text-primary) p-1 rounded-md hover:scale-105 transition-transform *:w-3.5 *:h-3.5 shrink-0"
-                              aria-label="Hackathon link"
-                            >
-                              <ExternalLinkIcon />
-                            </a>
+                            <p className="mb-6 max-w-md text-[15px] leading-relaxed text-(--text-secondary)">
+                              {contrib.description}
+                            </p>
+                            <div className="mt-auto flex flex-wrap gap-2">
+                              {contrib.tech.map((t) => (
+                                <TechBadge key={t} name={t} size="sm" />
+                              ))}
+                            </div>
                           </div>
-                          <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                            {contrib.description}
-                          </p>
-                          <div className="flex flex-wrap gap-1.5 mt-auto">
-                            {contrib.tech.map((t) => (
-                              <span
-                                key={t}
-                                className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                              >
-                                {t}
-                              </span>
-                            ))}
+                          {/* Right — preview image */}
+                          <div className="overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm transition-all duration-300 ease-out group-hover:border-(--text-muted) group-hover:shadow-md">
+                            {contrib.image ? (
+                              <div className="relative aspect-16/10 overflow-hidden bg-black">
+                                <img
+                                  src={contrib.image}
+                                  alt={contrib.title}
+                                  className="absolute inset-0 h-full w-full object-contain transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                                />
+                              </div>
+                            ) : (
+                              <div className="flex aspect-16/10 items-center justify-center bg-(--bg-tertiary) text-(--text-muted)">
+                                <ExternalLinkIcon />
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
                     );
                   })}
                 </div>
-              </SectionMinimal>
+              </SectionRow>
             </div>
           </div>
         </main>
