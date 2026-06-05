@@ -1,0 +1,175 @@
+%-------------------------
+% Resume in LaTeX
+% Malekuz Zafar Qadri — Fullstack Developer
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    {\Huge \scshape Malekuz Zafar Qadri} \\ \vspace{1pt}
+    Delhi, India \quad
+    \faPhone\ +91 7439091413 \quad
+    \faEnvelope\ \href{mailto:zafarrworks@gmail.com}{zafarrworks@gmail.com} \\ \vspace{1pt}
+    \faLinkedin\ \href{https://linkedin.com/in/qzmalekuz}{linkedin.com/in/qzmalekuz} \quad
+    \faGithub\ \href{https://github.com/qzmalekuz}{github.com/qzmalekuz} \quad
+    \faGlobe\ \href{https://zafarr.xyz}{zafarr.xyz}
+\end{center}
+
+%-----------ABOUT ME-----------
+\section*{About Me}
+Fullstack developer experienced in building production-grade web platforms end-to-end from PostgreSQL schema design and Express/Django APIs to React frontends and cloud deployment. Strong background in real-time systems (WebSockets), authentication, payments, and concurrency-safe backend architectures.
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Talkamore}{April 2026 -- Present}
+      {Founding Engineer}{Remote}
+      \resumeItemListStart
+        \resumeItem{Built and designed the product end-to-end across web and mobile for both App Store and Play Store.}
+        \resumeItem{Owning system design and the core backend, with a focus on scalability and real-time features.}
+        \resumeItem{Shipping production features in a fast-moving early-stage team.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Krane Apps}{September 2025 -- April 2026}
+      {Blockchain and Backend Developer}{Remote}
+      \resumeItemListStart
+        \resumeItem{Building backend services and on-chain integrations for client products.}
+        \resumeItem{Working across Web3 tooling and Solana program interactions.}
+        \resumeItem{Delivering APIs and data flows that power web and mobile clients.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+
+      \resumeProjectHeading
+          {\textbf{Talkamore} $|$ \emph{TypeScript, Next.js, WebSockets, LLM APIs, PostgreSQL, Prisma, Redis}}{\href{https://talkamore.com}{\faExternalLink*\ Live}}
+          \resumeItemListStart
+            \resumeItem{Built an \textbf{AI companion app} for reflective journaling and emotional support, owning system design and the core backend across web and mobile.}
+            \resumeItem{Engineered \textbf{real-time streaming LLM conversations} with low-latency token streaming over WebSockets, context/memory management, and prompt orchestration for coherent multi-turn sessions.}
+            \resumeItem{Built a concurrency-safe backend (PostgreSQL + Prisma, Redis pub/sub) scaling persistent connections horizontally, plus subscription billing, authentication, and rate-limited APIs.}
+            \resumeItem{Shipped a shared cross-platform stack powering both web and native mobile clients from a single backend.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{KodeZilla.io} $|$ \emph{TypeScript, Express.js, Bun, Prisma, PostgreSQL, React, Docker}}{\href{https://github.com/qzMalekuz/KodeZilla.io}{\faGithub\ GitHub}}
+          \resumeItemListStart
+            \resumeItem{Built a \textbf{full-stack competitive programming contest platform} with role-based access (creator/contestant), contest management, MCQ \& DSA submissions, and a \textbf{live leaderboard}.}
+            \resumeItem{Implemented \textbf{JWT}, Zod validation, and rate-limited APIs on a backend with PostgreSQL.}
+            \resumeItem{Architected a React frontend served via a Bun proxy that routes \texttt{/api/*} to the backend through a single origin, containerised with \textbf{Docker Compose}.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{ChatLo.io} $|$ \emph{Node.js, TypeScript, WebSockets, React, AWS EC2, Nginx, Cloudflare}}{\href{https://github.com/qzMalekuz/ChatLo.io}{\faGithub\ GitHub} $|$ \href{https://chat.zafarr.xyz}{\faExternalLink*\ Live}}
+          \resumeItemListStart
+            \resumeItem{Built a \textbf{full-stack real-time chat application} with WebSocket-based broadcasting, private DMs, group rooms, typing indicators, and multimedia.}
+            \resumeItem{Implemented rate limiting, persistent socket connections (no polling overhead), and a mobile-first responsive UI.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{playTo-pay} $|$ \emph{Django, DRF, PostgreSQL, Celery, Redis, React, Docker}}{\href{https://github.com/qzMalekuz/playTo-pay}{\faGithub\ GitHub} $|$ \href{https://playto.zafarr.xyz}{\faExternalLink*\ Live}}
+          \resumeItemListStart
+            \resumeItem{Engineered a \textbf{merchant payout engine} for Indian merchants enabling payment accumulation and bank withdrawals, with concurrency-safe ledger accounting, no stored balance column to prevent drift.}
+            \resumeItem{Implemented \textbf{database-level locking} with idempotency via unique constraints, and atomic transactions binding balance checks to fund debits.}
+            \resumeItem{Built a state machine preventing illegal status transitions and \textbf{Celery-based retry workers} with Redis for failed-payout recovery; deployed via Docker Compose.}
+          \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages \& Frontend}{: TypeScript, JavaScript, Python, SQL, React, Next.js, Tailwind CSS, Framer Motion} \\
+     \textbf{Backend}{: Node.js, Express.js, Bun, Django, Celery, REST APIs, WebSockets} \\
+     \textbf{Databases \& DevOps}{: PostgreSQL, Prisma, Redis, Docker, AWS (EC2), Nginx, PM2, CI/CD} \\
+    }}
+ \end{itemize}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Indian Institute of Technology, Guwahati}{2025 -- 2029}
+      {Bachelor of Science in Computer Science}{Guwahati, Assam}
+  \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}

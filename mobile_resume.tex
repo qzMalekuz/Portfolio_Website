@@ -1,0 +1,177 @@
+%-------------------------
+% Resume in LaTeX
+% Author: Malekuz Zafar Qadri
+% Mobile Developer Focus
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    {\Huge \scshape Malekuz Zafar Qadri} \\ \vspace{4pt}
+    \small \mbox{Delhi, India} \quad
+    \mbox{\faPhone\ +91 7439091413} \quad
+    \mbox{\href{mailto:zafarrworks@gmail.com}{\faEnvelope\ zafarrworks@gmail.com}} \quad
+    \mbox{\href{https://linkedin.com/in/qzmalekuz}{\faLinkedin\ linkedin.com/in/qzmalekuz}} \quad
+    \mbox{\href{https://github.com/qzmalekuz}{\faGithub\ github.com/qzmalekuz}} \quad
+    \mbox{\href{https://zafarr.xyz}{\faGlobe\ zafarr.xyz}}
+\end{center}
+
+%-----------ABOUT ME-----------
+\section{About Me}
+React Native developer with \textbf{shipped, live, revenue-generating apps} on the DApp Store — each with \textbf{10,000+ downloads} and active user ratings. Experienced in cross-platform mobile development, blockchain wallet integration, real-time data handling, and smooth UI/UX across Android and iOS.
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Talkamore}{April 2026 -- Present}
+      {Founding Engineer}{Remote}
+      \resumeItemListStart
+        \resumeItem{Built and designed the product end-to-end across web and mobile for both App Store and Play Store.}
+        \resumeItem{Owning system design and the core backend, with a focus on scalability and real-time features.}
+        \resumeItem{Shipping production features in a fast-moving early-stage team.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Krane Apps}{September 2025 -- April 2026}
+      {Blockchain and Backend Developer}{Remote}
+      \resumeItemListStart
+        \resumeItem{Building backend services and on-chain integrations for client products.}
+        \resumeItem{Working across Web3 tooling and Solana program interactions.}
+        \resumeItem{Delivering APIs and data flows that power web and mobile clients.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+
+      \resumeProjectHeading
+          {\textbf{Talkamore} $|$ \emph{React Native, Expo, TypeScript, TanStack Query} $|$ \href{https://talkamore.com}{\faExternalLink*\ Live}}{Live on App Store}
+          \resumeItemListStart
+            \resumeItem{Built the \textbf{Mobile and Web app end-to-end} in React Native and Expo over a Node + Postgres backend, with Auth0 PKCE auth and JWTs stored in \texttt{expo-secure-store}.}
+            \resumeItem{Built \textbf{real-time AI chat streaming} with a navigation-independent engine so replies finish across screens, with quota, persona, and memory recall handled server-side.}
+            \resumeItem{Delivered polished cross-platform UI across iOS and Android: journaling with inline photos, animated draggable sheets, and live insights.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{Luna AI} $|$ \emph{React Native, OpenAI API, Hugging Face, TypeScript} $|$ \href{https://github.com/Krane-Apps/luna-ai-unfiltered-ai-companion}{\faGithub\ GitHub}}{Live on DApp Store}
+          \resumeItemListStart
+            \resumeItem{Built a production AI companion app with fully optimised mobile UI for smooth conversational interactions.}
+            \resumeItem{Integrated \textbf{Hugging Face Inference} and \textbf{OpenAI APIs} for real-time AI responses with async data handling and efficient state management.}
+            \resumeItem{Achieved 10,000+ downloads with active user ratings; currently generating revenue on the DApp Store.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{Solana Near Me} $|$ \emph{React Native, Solana Web3.js, TypeScript} $|$ \href{https://github.com/Krane-Apps/solana-near-me}{\faGithub\ GitHub}}{Live on DApp Store}
+          \resumeItemListStart
+            \resumeItem{Developed a \textbf{blockchain-integrated location app} using React Native and Solana Web3.js, combining geolocation features with on-chain data.}
+            \resumeItem{Implemented cross-platform UI optimisation ensuring smooth performance on both Android and iOS form factors.}
+            \resumeItem{Handled \textbf{async data fetching, REST API integration}, and real-time location state management within the app.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{SolPin Arcade} $|$ \emph{React Native, TypeScript, Solana, Web3.js} $|$ \href{https://github.com/qzMalekuz/SolPin-Arcade}{\faGithub\ GitHub}}{Live on DApp Store}
+          \resumeItemListStart
+            \resumeItem{Built a \textbf{cross-platform arcade staking game} in React Native featuring a custom \textbf{HTML5 Canvas-based physics engine} for real-time gameplay and animations.}
+            \resumeItem{Integrated \textbf{Solana} for wallet authentication, secure staking, and reward distribution using smart contracts.}
+          \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Mobile}{: React Native, Expo, EAS Build, Mobile Wallet Adapter (MWA)} \\
+     \textbf{Languages}{: TypeScript, JavaScript, Python} \\
+     \textbf{State \& Data}{: REST APIs, WebSockets, Async handling, Prisma, PostgreSQL} \\
+     \textbf{Web / Backend}{: React.js, Next.js, Node.js, Express.js, Docker, AWS, CI/CD} \\
+    }}
+ \end{itemize}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Indian Institute of Technology, Guwahati}{2025 -- 2029}
+      {Bachelor of Science in Computer Science}{Guwahati, Assam}
+  \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}

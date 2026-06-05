@@ -14,7 +14,8 @@ import kraneAppsLogo from "./assets/krane-apps.png";
 import talkamoreLogo from "./assets/talkamore.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
 import kodezillaRecording from "./assets/kodezilla-recording.mov";
-import resumePdf from "./assets/resume.pdf";
+import fullstackResumePdf from "./assets/JUNE_RESUME_FS.pdf";
+import mobileResumePdf from "./assets/JUNE_RESUME_MOBILE.pdf";
 import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
@@ -37,6 +38,7 @@ import {
   DownloadIcon,
   FileTextIcon,
   CloseIcon,
+  ChevronDownIcon,
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { SectionRow } from "./components/ui/SectionRow";
@@ -54,8 +56,25 @@ export function App() {
   const [copied, setCopied] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [currentHash, setCurrentHash] = useState(window.location.hash);
-  const [resumeOpen, setResumeOpen] = useState(false);
+  const [resumeMenuOpen, setResumeMenuOpen] = useState(false);
+  const [activeResume, setActiveResume] = useState<"fullstack" | "mobile" | null>(
+    null,
+  );
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const resumes = {
+    fullstack: {
+      label: "FullStack Resume",
+      pdf: fullstackResumePdf,
+      downloadName: "Zafarr-Malekuz-FullStack-Resume.pdf",
+    },
+    mobile: {
+      label: "Mobile Resume",
+      pdf: mobileResumePdf,
+      downloadName: "Zafarr-Malekuz-Mobile-Resume.pdf",
+    },
+  } as const;
+  const resumeOpen = activeResume !== null;
 
   useEffect(() => {
     const onResize = () => setWindowWidth(window.innerWidth);
@@ -91,7 +110,7 @@ export function App() {
   useEffect(() => {
     if (!resumeOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setResumeOpen(false);
+      if (e.key === "Escape") setActiveResume(null);
     };
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -101,6 +120,23 @@ export function App() {
       document.body.style.overflow = prevOverflow;
     };
   }, [resumeOpen]);
+
+  useEffect(() => {
+    if (!resumeMenuOpen) return;
+    const onPointerDown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("[data-resume-menu]")) setResumeMenuOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResumeMenuOpen(false);
+    };
+    window.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [resumeMenuOpen]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -664,24 +700,10 @@ export function App() {
                   <span className="font-medium text-(--text-primary)">
                     zafarrworks@gmail.com
                   </span>
-                  <button
-                    onClick={copyEmail}
-                    className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
-                    title="Copy email"
-                  >
-                    {copied ? <CheckIcon /> : <CopyIcon />}
-                  </button>
+
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-3">
-                  <a
-                    href="mailto:zafarrworks@gmail.com"
-                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                  >
-                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                      <MailIcon />
-                    </span>
-                    <span className="hover-wavy">Email</span>
-                  </a>
+
                   <a
                     href="https://github.com/qzMalekuz"
                     target="_blank"
@@ -715,16 +737,48 @@ export function App() {
                     </span>
                     <span className="hover-wavy">LinkedIn</span>
                   </a>
-                  <button
-                    type="button"
-                    onClick={() => setResumeOpen(true)}
-                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
-                  >
-                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                      <FileTextIcon />
-                    </span>
-                    <span className="hover-wavy">Resume</span>
-                  </button>
+                  <div className="relative" data-resume-menu>
+                    <button
+                      type="button"
+                      onClick={() => setResumeMenuOpen((o) => !o)}
+                      aria-haspopup="menu"
+                      aria-expanded={resumeMenuOpen}
+                      className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
+                    >
+                      <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
+                        <FileTextIcon />
+                      </span>
+                      <span className="hover-wavy">Resume</span>
+                      <span
+                        className={`text-(--text-muted) transition-transform duration-200 ease-out ${resumeMenuOpen ? "rotate-180" : ""}`}
+                      >
+                        <ChevronDownIcon />
+                      </span>
+                    </button>
+
+                    {resumeMenuOpen && (
+                      <div
+                        role="menu"
+                        className="absolute bottom-full left-0 z-50 mb-2 min-w-48 overflow-hidden rounded-xl border border-(--border-color) bg-(--bg-secondary) p-1 shadow-2xl animate-in fade-in slide-in-from-bottom-1 duration-150"
+                      >
+                        {(["mobile", "fullstack"] as const).map((key) => (
+                          <button
+                            key={key}
+                            type="button"
+                            role="menuitem"
+                            onClick={() => {
+                              setActiveResume(key);
+                              setResumeMenuOpen(false);
+                            }}
+                            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-[13px] font-medium text-(--text-secondary) hover:bg-(--bg-tertiary) hover:text-(--text-primary) transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:bg-(--bg-tertiary)"
+                          >
+                            <FileTextIcon />
+                            <span>{resumes[key].label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -919,10 +973,10 @@ export function App() {
         <Footer />
       </div>
 
-      {resumeOpen && (
+      {activeResume && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-sm"
-          onClick={() => setResumeOpen(false)}
+          onClick={() => setActiveResume(null)}
           role="dialog"
           aria-modal="true"
           aria-label="Resume preview"
@@ -934,12 +988,12 @@ export function App() {
             <div className="flex items-center justify-between px-4 py-3 border-b border-(--border-color)">
               <div className="flex items-center gap-2 text-[13px] font-medium text-(--text-primary)">
                 <FileTextIcon />
-                <span>Resume</span>
+                <span>{resumes[activeResume].label}</span>
               </div>
               <div className="flex items-center gap-2">
                 <a
-                  href={resumePdf}
-                  download="Zafarr-Malekuz-Resume.pdf"
+                  href={resumes[activeResume].pdf}
+                  download={resumes[activeResume].downloadName}
                   className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md px-2.5 py-1.5 border border-(--border-color) hover:border-(--text-muted) bg-(--bg-tertiary)"
                 >
                   <DownloadIcon />
@@ -947,7 +1001,7 @@ export function App() {
                 </a>
                 <button
                   type="button"
-                  onClick={() => setResumeOpen(false)}
+                  onClick={() => setActiveResume(null)}
                   className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
                   aria-label="Close resume preview"
                 >
@@ -956,8 +1010,8 @@ export function App() {
               </div>
             </div>
             <iframe
-              src={`${resumePdf}#view=FitH`}
-              title="Resume preview"
+              src={`${resumes[activeResume].pdf}#view=FitH`}
+              title={`${resumes[activeResume].label} preview`}
               className="flex-1 w-full bg-white"
             />
           </div>
