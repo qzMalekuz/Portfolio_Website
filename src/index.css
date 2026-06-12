@@ -111,19 +111,68 @@
 
 html {
   background: var(--bg-primary);
+  /* Stop iOS/Android from auto-inflating font sizes on rotation, which throws
+     off the carefully tuned type scale on landscape phones. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   font-family: 'Geist', 'Inter', sans-serif;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
-  background-color: var(--bg-primary); 
+  background-color: var(--bg-primary);
   color: var(--text-primary);
+  /* Never allow a stray wide element (long URL, image, badge row) to introduce a
+     horizontal scrollbar on small screens. */
+  overflow-x: hidden;
+  /* Remove the grey tap flash on touch devices for a native-app feel. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Any long, unbreakable token (email, repo URL) wraps instead of forcing the
+   page wider than the viewport on 320px-class phones. */
+a,
+p,
+span,
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
 }
 
 .app-shell {
   position: relative;
   isolation: isolate;
+  /* Use the dynamic viewport unit so the shell tracks the *visible* height as
+     mobile browser chrome (URL bar) expands/collapses — `100vh` is the largest
+     possible height and leaves a gap / hides the footer on iOS Safari & Android
+     Chrome. min-h-screen (the Tailwind class on .app-shell) is the 100vh
+     fallback for browsers without dvh support; this rule wins where supported. */
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* Safe-area helpers for notched / gesture-bar devices (iPhone X+, modern
+   Android). Applied to the fixed floating nav and the footer so neither hides
+   under the home indicator. `viewport-fit=cover` in the meta tag activates env(). */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.pb-safe {
+  padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* On phones the floating nav docks to the bottom-center. Lift it above the home
+   indicator / gesture bar. Scoped below the `md` breakpoint (768px) so it never
+   touches the tablet/desktop layout, where the nav is vertically centered on the
+   right edge (md:bottom-auto). max() keeps the original 1rem gap on devices with
+   no inset. */
+@media (max-width: 767px) {
+  .floating-nav {
+    bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
+  }
 }
 
 .premium-background {

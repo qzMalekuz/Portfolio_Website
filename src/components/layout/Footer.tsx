@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Footer = () => (
-  <footer className="mx-auto w-full max-w-5xl px-5 pb-28 sm:px-8 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
+  <footer className="safe-bottom mx-auto w-full max-w-5xl px-5 pb-28 sm:px-8 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
     <div className="pt-12 flex flex-col items-center gap-6 border-t border-(--border-color)">
       <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-(--text-muted) sm:gap-6">
         <a href="mailto:zafarrworks@gmail.com" className="hover:text-(--text-primary) transition-colors hover-wavy">Email</a>

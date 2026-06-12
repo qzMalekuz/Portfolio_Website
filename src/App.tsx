@@ -348,7 +348,7 @@ export function App() {
       title: "Luna AI",
       category: "mobile" as const,
       description:
-        "An unfiltered AI companion chatbot built with React Native and Expo. Powered by OpenAI for natural conversation, with Firebase for accounts and Solana Mobile Wallet Adapter for in-app crypto payments. Shipped to Android and live on the Solana dApp Store.",
+        "An unfiltered AI companion chatbot built with React Native and Expo. Powered by OpenAI for natural conversation, with Firebase for accounts and Solana Mobile Wallet Adapter for in-app crypto payments.",
       tech: ["React Native", "Expo", "TypeScript", "OpenAI", "Solana", "Firebase"],
       roles: [{ name: "Mobile", type: "mobile" }] as const,
       githubUrl: "https://github.com/qzMalekuz/luna-ai-unfiltered-ai-companion",
@@ -360,7 +360,7 @@ export function App() {
       title: "Solana - Near Me",
       category: "mobile" as const,
       description:
-        "A React Native + Expo mobile dApp that helps you discover crypto-accepting merchants on an interactive map and pay them in SOL or USDC via Solana Pay and the Mobile Wallet Adapter. Features live exchange rates, 1% SOL cashback, and NFT reward badges. Live on the Solana dApp Store.",
+        "A React Native + Expo mobile dApp that helps you discover crypto-accepting merchants on an interactive map and pay them in SOL or USDC via Solana Pay and the Mobile Wallet Adapter. Features live exchange rates, 1% SOL cashback, and NFT reward badges.",
       tech: ["React Native", "Expo", "TypeScript", "Solana", "Firebase"],
       roles: [{ name: "Mobile", type: "mobile" }] as const,
       githubUrl: "https://github.com/qzMalekuz/solana-near-me",
@@ -376,10 +376,11 @@ export function App() {
       tech: ["React Native", "Expo", "TypeScript", "Solana", "Matter.js"],
       roles: [{ name: "Full Stack", type: "dev" }] as const,
       githubUrl: "https://github.com/qzMalekuz/SolPin-Arcade",
-      liveUrl: undefined as string | undefined,
-      downloadApkUrl: "https://github.com/qzMalekuz/SolPin-Arcade/releases/download/v2.0/Sol-Pin.Arcade.apk",
+      statusLabel: "Live on Solana dApp Store",
+      // Banner is a 4:3 (1920×1440) image framed exactly like the other mobile
+      // banners (Near Me, Luna), so it uses the same default `cover` fit and
+      // renders through the identical code path — keeping the framing consistent.
       image: solPinBanner,
-      imageFit: "contain" as const,
       screenshots: [
         {
           src: screenshot1,
@@ -502,7 +503,7 @@ export function App() {
     <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
       <PremiumBackground />
 
-      <nav className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 md:top-1/2 md:right-6 md:bottom-auto md:left-auto md:translate-x-0 md:-translate-y-1/2 lg:right-8">
+      <nav className="floating-nav fixed bottom-4 left-1/2 z-50 -translate-x-1/2 md:top-1/2 md:right-6 md:bottom-auto md:left-auto md:translate-x-0 md:-translate-y-1/2 lg:right-8">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
@@ -534,7 +535,7 @@ export function App() {
       </nav>
 
       {currentPath === "/about" ? (
-        <main className="relative z-10 mx-auto min-h-[80vh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
+        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-12">
             <AboutSection />
             <SectionRow title="Technologies">
@@ -570,7 +571,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="relative z-10 mx-auto min-h-[80vh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
+        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -579,7 +580,7 @@ export function App() {
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                 <SectionMinimal title="Project Details">
                   <div className="mb-6 flex flex-wrap items-center justify-between gap-4 pl-1 sm:flex-nowrap">
-                    <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight">
+                    <h1 className="min-w-0 text-2xl font-bold text-(--text-primary) tracking-tight sm:text-3xl">
                       {project.title}
                     </h1>
                     <div className="flex shrink-0 flex-wrap gap-3">
@@ -591,16 +592,6 @@ export function App() {
                           className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
                         >
                           Visit Website <ExternalLinkIcon />
-                        </a>
-                      )}
-                      {project.id === "solpin-arcade" && "downloadApkUrl" in project && (
-                        <a
-                          href={project.downloadApkUrl as string}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
-                        >
-                          Install APK <DownloadIcon />
                         </a>
                       )}
                       {project.githubUrl && (
@@ -806,7 +797,7 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="relative z-10 mx-auto min-h-[80vh] max-w-5xl space-y-16 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 lg:px-16">
+        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-16 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 lg:px-16">
           <header id="home" className="scroll-mt-24">
             <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
             <div className="flex flex-col">
@@ -1139,22 +1130,28 @@ export function App() {
 
       {activeResume && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-sm"
           onClick={() => setActiveResume(null)}
           role="dialog"
           aria-modal="true"
           aria-label="Resume preview"
+          style={{
+            // Keep the modal clear of the notch/home-bar so the close button and
+            // PDF are always reachable on phones. No-op on devices with no inset.
+            paddingTop: "max(0.75rem, env(safe-area-inset-top, 0px))",
+            paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0px))",
+          }}
         >
           <div
-            className="relative w-full max-w-4xl h-[90vh] rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-2xl flex flex-col overflow-hidden"
+            className="relative flex w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-2xl h-dvh max-h-full sm:h-[90dvh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-4 py-3 border-b border-(--border-color)">
-              <div className="flex items-center gap-2 text-[13px] font-medium text-(--text-primary)">
+            <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-(--border-color)">
+              <div className="flex min-w-0 items-center gap-2 text-[13px] font-medium text-(--text-primary)">
                 <FileTextIcon />
-                <span>{resumes[activeResume].label}</span>
+                <span className="truncate">{resumes[activeResume].label}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 items-center gap-2">
                 <a
                   href={resumes[activeResume].pdf}
                   download={resumes[activeResume].downloadName}
