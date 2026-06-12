@@ -4,6 +4,9 @@ import "./index.css";
 
 import chatLoBanner from "./assets/chatLo_banner.png";
 import appointmentBanner from "./assets/appointment.png";
+import talkamoreWebVideo from "./assets/talkamore-web.mp4";
+import talkamoreWebBanner from "./assets/talkamore_banner.png";
+import talkamoreMobileBanner from "./assets/talkamore_banner_mobile.png";
 import chatRecording from "./assets/chat-screen-recording.mp4";
 import appointmentRecording from "./assets/appointment-screen-recording.mp4";
 import icebreakerRecording from "./assets/icebreaker-demo-video2.mp4";
@@ -14,6 +17,9 @@ import kraneAppsLogo from "./assets/krane-apps.png";
 import talkamoreLogo from "./assets/talkamore.png";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
 import kodezillaRecording from "./assets/kodezilla-recording.mov";
+import playtoBanner from "./assets/playto_banner.png";
+import lunaBanner from "./assets/luna_banner.png";
+import nearmeBanner from "./assets/nearme_banner.png";
 import fullstackResumePdf from "./assets/JUNE_RESUME_FS.pdf";
 import mobileResumePdf from "./assets/JUNE_RESUME_MOBILE.pdf";
 import testspriteBanner from "./assets/testsprite_banner.png";
@@ -45,11 +51,12 @@ import { SectionRow } from "./components/ui/SectionRow";
 import { ExperienceItem } from "./components/ui/ExperienceItem";
 import { NameFlip } from "./components/ui/NameFlip";
 import { TechBadge } from "./components/ui/TechBadge";
-import { ProjectCard } from "./components/projects/ProjectCard";
+import { ProjectsSection } from "./components/projects/ProjectsSection";
 import { AboutSection } from "./components/about/AboutSection";
 import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 import { PremiumBackground } from "./components/ui/PremiumBackground";
+import { DinoGame } from "./components/ui/DinoGame";
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
@@ -61,6 +68,19 @@ export function App() {
     null,
   );
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // Remember which project category the visitor was viewing so a reload keeps
+  // them there. First-time visitors (no stored value) land on "mobile" — it's
+  // the primary/default section.
+  const [projectCategory, setProjectCategory] = useState<"fullstack" | "mobile">(
+    () => {
+      const stored = localStorage.getItem("projectCategory");
+      return stored === "fullstack" || stored === "mobile" ? stored : "mobile";
+    },
+  );
+
+  useEffect(() => {
+    localStorage.setItem("projectCategory", projectCategory);
+  }, [projectCategory]);
 
   const resumes = {
     fullstack: {
@@ -254,8 +274,20 @@ export function App() {
 
   const projects = [
     {
+      id: "talkamore-web",
+      title: "Talkamore Web",
+      category: "fullstack" as const,
+      description:
+        "The web companion for Talkamore, an AI journaling app. Chat with a personal AI that remembers your past entries and turns daily conversations into a private journal — with organized journal Books, streaming AI replies, and a polished landing experience.",
+      tech: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "pi SDK", "AWS Bedrock", "OpenRouter", "Dodo Payments"],
+      roles: [{ name: "Full Stack", type: "dev" }] as const,
+      liveUrl: "https://talkamore.com/",
+      image: talkamoreWebBanner,
+    },
+    {
       id: "kodezilla",
       title: "KodeZilla.io",
+      category: "fullstack" as const,
       description:
         "A competitive programming contest platform with real-time leaderboards, multi-type problem support (MCQ and DSA), and separate creator/contestant workflows.",
       tech: ["React", "TypeScript", "Express", "PostgreSQL"],
@@ -264,8 +296,21 @@ export function App() {
       image: kodezillaBanner,
     },
     {
+      id: "playto-pay",
+      title: "Playto Pay",
+      category: "fullstack" as const,
+      description:
+        "A payout engine where merchants accumulate balance from customer payments and withdraw to their bank accounts. Built for correctness under load — concurrency-safe balance holds, idempotent payout requests, and a strict state machine, with Celery handling async processing and retries.",
+      tech: ["Django", "PostgreSQL", "Celery", "Redis", "React"],
+      roles: [{ name: "Full Stack", type: "dev" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/playTo-pay",
+      liveUrl: "https://playto.zafarr.xyz/",
+      image: playtoBanner,
+    },
+    {
       id: "chatlo",
       title: "ChatLo.io",
+      category: "fullstack" as const,
       description:
         "A real-time chat application built with pure WebSockets. Features low-latency, bidirectional client communication with a clean and smooth UI.",
       tech: ["React", "TypeScript", "WebSockets", "Express"],
@@ -277,6 +322,7 @@ export function App() {
     {
       id: "appointmentlelo",
       title: "AppointmentLelo.io",
+      category: "fullstack" as const,
       description:
         "A role-based appointment booking system with slot management. Features user/admin dashboards, booking flows, and a polished UI with smooth animations.",
       tech: ["React", "TypeScript", "Framer", "Express", "Prisma"],
@@ -286,8 +332,45 @@ export function App() {
       image: appointmentBanner,
     },
     {
+      id: "talkamore",
+      title: "Talkamore App",
+      category: "mobile" as const,
+      description:
+        "An AI journaling companion built with React Native and Xcode. Chat with a personal AI that remembers your past entries, surfaces throwbacks, and turns daily conversations into a private, encrypted journal. Features streaming chat, Auth0 sign-in, paywalled premium tiers, and paper-journal scanning.",
+      tech: ["React Native", "Xcode", "TypeScript", "TanStack Query", "SuperMemory", "Auth0", "RevenueCat", "PostgreSQL"],
+      roles: [{ name: "Mobile", type: "mobile" }] as const,
+      statusLabel: "Live on Apple Store",
+      statusUrl: "https://apps.apple.com/no/app/ai-journal-diary-talkamore/id6769851209",
+      image: talkamoreMobileBanner,
+    },
+    {
+      id: "luna-ai",
+      title: "Luna AI",
+      category: "mobile" as const,
+      description:
+        "An unfiltered AI companion chatbot built with React Native and Expo. Powered by OpenAI for natural conversation, with Firebase for accounts and Solana Mobile Wallet Adapter for in-app crypto payments. Shipped to Android and live on the Solana dApp Store.",
+      tech: ["React Native", "Expo", "TypeScript", "OpenAI", "Solana", "Firebase"],
+      roles: [{ name: "Mobile", type: "mobile" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/luna-ai-unfiltered-ai-companion",
+      statusLabel: "Live on Solana dApp Store",
+      image: lunaBanner,
+    },
+    {
+      id: "near-me",
+      title: "Solana - Near Me",
+      category: "mobile" as const,
+      description:
+        "A React Native + Expo mobile dApp that helps you discover crypto-accepting merchants on an interactive map and pay them in SOL or USDC via Solana Pay and the Mobile Wallet Adapter. Features live exchange rates, 1% SOL cashback, and NFT reward badges. Live on the Solana dApp Store.",
+      tech: ["React Native", "Expo", "TypeScript", "Solana", "Firebase"],
+      roles: [{ name: "Mobile", type: "mobile" }] as const,
+      githubUrl: "https://github.com/qzMalekuz/solana-near-me",
+      statusLabel: "Live on Solana dApp Store",
+      image: nearmeBanner,
+    },
+    {
       id: "solpin-arcade",
-      title: "SolPin-Arcade",
+      title: "SolPin - Arcade",
+      category: "mobile" as const,
       description:
         "A retro-inspired 2D pinball game built with Expo (React Native + TypeScript) that integrates Solana staking mechanics into a skill-based arcade experience.",
       tech: ["React Native", "Expo", "TypeScript", "Solana", "Matter.js"],
@@ -296,6 +379,7 @@ export function App() {
       liveUrl: undefined as string | undefined,
       downloadApkUrl: "https://github.com/qzMalekuz/SolPin-Arcade/releases/download/v2.0/Sol-Pin.Arcade.apk",
       image: solPinBanner,
+      imageFit: "contain" as const,
       screenshots: [
         {
           src: screenshot1,
@@ -318,6 +402,7 @@ export function App() {
     {
       id: "icebreaker",
       title: "Icebreaker.io",
+      category: "fullstack" as const,
       description:
         "A real-time anonymous stranger-matching platform where two people share one prompt, three exchanges, and a choice: stay or vanish. Built with React, Node.js, and Socket.io for ephemeral sessions that prioritize privacy.",
       tech: ["React", "TypeScript", "Socket.io", "Express", "Vite"],
@@ -528,6 +613,22 @@ export function App() {
                           <GitHubIcon /> View Source
                         </a>
                       )}
+                      {"statusLabel" in project && project.statusLabel && (
+                        "statusUrl" in project && project.statusUrl ? (
+                          <a
+                            href={project.statusUrl as string}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-2 px-3 py-1.5 text-[12px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-secondary) rounded-lg hover:text-(--text-primary) hover:border-(--text-muted) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
+                          >
+                            {project.statusLabel} <ExternalLinkIcon />
+                          </a>
+                        ) : (
+                          <span className="inline-flex items-center justify-center px-3 py-1.5 text-[12px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-secondary) rounded-lg">
+                            {project.statusLabel}
+                          </span>
+                        )
+                      )}
                     </div>
                   </div>
 
@@ -540,6 +641,25 @@ export function App() {
                   <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl mb-8 pl-1">
                     {project.description}
                   </p>
+
+                  {project.id === "talkamore-web" && (
+                    <div className="mb-10 pl-1">
+                      {/* Product walkthrough video. Shown at its native aspect
+                          ratio — the card height follows the video so it's never
+                          cropped. bg-black backs it so there's no white flash
+                          while the video loads. */}
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-black">
+                        <video
+                          src={talkamoreWebVideo}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="block h-auto w-full"
+                        />
+                      </div>
+                    </div>
+                  )}
 
                   {project.id === "solpin-arcade" && (() => {
                     const solpinScreenshots = [
@@ -632,6 +752,54 @@ export function App() {
                     </div>
                   )}
 
+                  {project.id === "playto-pay" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <img
+                          src={playtoBanner}
+                          alt="Playto Pay dashboard"
+                          className="w-full h-auto block"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {project.id === "luna-ai" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <img
+                          src={lunaBanner}
+                          alt="Luna AI — Unfiltered AI Companion"
+                          className="w-full h-auto block"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {project.id === "near-me" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <img
+                          src={nearmeBanner}
+                          alt="Near Me — Find Solana Merchants Near You"
+                          className="w-full h-auto block"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {project.id === "talkamore" && (
+                    <div className="mb-10 pl-1">
+                      <div className="relative rounded-2xl overflow-hidden border border-(--border-color) shadow-lg bg-(--bg-secondary)">
+                        <img
+                          src={talkamoreMobileBanner}
+                          alt="Talkamore App — AI Journaling Companion"
+                          className="w-full h-auto block"
+                        />
+                      </div>
+                    </div>
+                  )}
+
                 </SectionMinimal>
               </div>
             );
@@ -640,12 +808,13 @@ export function App() {
       ) : (
         <main className="relative z-10 mx-auto min-h-[80vh] max-w-5xl space-y-16 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 lg:px-16">
           <header id="home" className="scroll-mt-24">
+            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
             <div className="flex flex-col">
             <NameFlip />
 
             <div className="flex flex-col gap-6 mt-4">
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
-                Full-stack &amp; mobile developer working{" "}
+                Mobile-First Full-Stack Developer working {" "}
                 <span className="font-medium text-(--text-primary)">
                   remotely
                 </span>
@@ -743,7 +912,7 @@ export function App() {
                       onClick={() => setResumeMenuOpen((o) => !o)}
                       aria-haspopup="menu"
                       aria-expanded={resumeMenuOpen}
-                      className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
+                      className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus:outline-none focus-visible:outline-none rounded-md cursor-pointer"
                     >
                       <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
                         <FileTextIcon />
@@ -759,7 +928,7 @@ export function App() {
                     {resumeMenuOpen && (
                       <div
                         role="menu"
-                        className="absolute bottom-full left-0 z-50 mb-2 min-w-48 overflow-hidden rounded-xl border border-(--border-color) bg-(--bg-secondary) p-1 shadow-2xl animate-in fade-in slide-in-from-bottom-1 duration-150"
+                        className="absolute top-full left-0 z-60 mt-2 min-w-48 overflow-hidden rounded-xl border border-(--border-color) bg-(--bg-secondary) p-1 shadow-2xl backdrop-blur-xl supports-backdrop-filter:bg-(--bg-secondary)/95 animate-in fade-in slide-in-from-top-1 duration-150"
                       >
                         {(["mobile", "fullstack"] as const).map((key) => (
                           <button
@@ -783,6 +952,13 @@ export function App() {
               </div>
             </div>
             </div>
+
+            {/* Ambient self-playing dino runner filling the empty space beside the
+                bio on large screens; tucks below the contact links on small ones. */}
+            <div className="hidden w-full max-w-85 shrink-0 lg:block">
+              <DinoGame />
+            </div>
+            </div>
           </header>
 
           <SectionRow title="Experience" id="experience">
@@ -795,8 +971,8 @@ export function App() {
                 period="Apr 2026 — Present"
                 location="Remote"
                 bullets={[
-                  "Founding engineer building the product end-to-end across web and mobile.",
-                  "Owning system design and the core backend, with a focus on scalability and real-time features.",
+                  "Built and designed the product end-to-end across web and mobile for both App Store and Play Store.",
+                  "Owning the core backend and system design, with a focus on scalability and real-time features.",
                   "Shipping production features in a fast-moving early-stage team.",
                 ]}
               />
@@ -820,24 +996,12 @@ export function App() {
           </SectionRow>
 
           <div id="projects-overview" className="scroll-mt-24">
-            <SectionRow title="Projects">
-              <div className="flex flex-col">
-                {projects
-                  .filter((p) => !("showInGrid" in p && p.showInGrid === false))
-                  .map((project, i) => (
-                    <div key={project.id}>
-                      {i > 0 && (
-                        <div className="my-10 h-px w-full bg-(--border-color)" />
-                      )}
-                      <ProjectCard
-                        {...project}
-                        index={i + 1}
-                        onDetailClick={(e) => navigateTo(`/${project.id}`, e)}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </SectionRow>
+            <ProjectsSection
+              projects={projects}
+              active={projectCategory}
+              onActiveChange={setProjectCategory}
+              onProjectClick={(id, e) => navigateTo(`/${id}`, e)}
+            />
 
             <div className="mt-24" id="open-source">
               <SectionRow title="Open Source">

@@ -1,6 +1,5 @@
-import { serve, file } from "bun";
+import { serve } from "bun";
 import index from "./index.html";
-import path from "path";
 
 const server = serve({
   port: 3001,
@@ -19,47 +18,11 @@ const server = serve({
       return Response.json({ message: `Hello, ${name}!` });
     },
 
-    "/*.mp4": async (req) => {
-      const url = new URL(req.url);
-      const filename = url.pathname.slice(1);
-      const filePath = path.join(import.meta.dir, "assets", filename);
-      const f = file(filePath);
-      if (await f.exists()) {
-        return new Response(f, {
-          headers: { "Content-Type": "video/mp4" },
-        });
-      }
-      return new Response("Not found", { status: 404 });
-    },
-
-    "/*.mov": async (req) => {
-      const url = new URL(req.url);
-      const filename = url.pathname.slice(1);
-      const filePath = path.join(import.meta.dir, "assets", filename);
-      const f = file(filePath);
-      if (await f.exists()) {
-        return new Response(f, {
-          headers: { "Content-Type": "video/quicktime" },
-        });
-      }
-      return new Response("Not found", { status: 404 });
-    },
-
-    "/*.pdf": async (req) => {
-      const url = new URL(req.url);
-      const filename = url.pathname.slice(1);
-      const filePath = path.join(import.meta.dir, "assets", filename);
-      const f = file(filePath);
-      if (await f.exists()) {
-        return new Response(f, {
-          headers: { "Content-Type": "application/pdf" },
-        });
-      }
-      return new Response("Not found", { status: 404 });
-    },
-
-    // Serve index.html for all unmatched routes.
-    // This must be last as it is a catch-all.
+    // Serve index.html for all unmatched routes so client-side routes
+    // (e.g. /chatlo, /playto-pay) resolve. Media/PDF assets are bundled by
+    // Bun and served as hashed root-level URLs, so no extension routes are
+    // needed here — and a glob like "/*.mp4" would greedily swallow client
+    // paths and 404 them. This catch-all must be last.
     "/": index,
     "/*": index,
   },

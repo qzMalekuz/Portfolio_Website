@@ -26,7 +26,7 @@
 
   --premium-base: #f8fafc;
   --premium-surface: rgba(255, 255, 255, 0.8);
-  --premium-dot: rgba(0, 0, 0, 0.06);
+  --premium-dot: rgba(0, 0, 0, 0.08);
   --premium-vignette: rgba(255, 255, 255, 0.6);
   --premium-grid-size: 26px;
   --premium-grid-offset-y: 0px;
@@ -82,7 +82,7 @@
 
   --premium-base: #050505;
   --premium-surface: rgba(5, 5, 5, 0.18);
-  --premium-dot: rgba(255, 255, 255, 0.1);
+  --premium-dot: rgba(255, 255, 255, 0.13);
   --premium-vignette: rgba(0, 0, 0, 0.34);
   --premium-grid-size: 24px;
   --premium-grid-offset-y: 0px;
@@ -149,7 +149,7 @@ body {
 
 .premium-background::before {
   z-index: 3;
-  opacity: 0.55;
+  opacity: 0.6;
   background-image: radial-gradient(circle, var(--premium-dot) 1px, transparent 1.4px);
   background-size: var(--premium-grid-size) var(--premium-grid-size);
   background-position: center var(--premium-grid-offset-y);
@@ -325,14 +325,15 @@ body {
 }
 
 @keyframes text-flip-3 {
-  0%, 20%   { transform: translateY(0); }
-  25%, 45%  { transform: translateY(-25%); }
-  50%, 70%  { transform: translateY(-50%); }
-  75%, 95%  { transform: translateY(-75%); }
+  0%, 16%   { transform: translateY(0); }
+  20%, 36%  { transform: translateY(-20%); }
+  40%, 56%  { transform: translateY(-40%); }
+  60%, 76%  { transform: translateY(-60%); }
+  80%, 96%  { transform: translateY(-80%); }
 }
 
 .animate-flip-3 {
-  animation: text-flip-3 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: text-flip-3 12.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .fade-mask {
@@ -404,6 +405,41 @@ body {
 
 .hover-wavy:hover::after {
   clip-path: inset(0 0 0 0);
+}
+
+/* Persistent wavy underline for the selected/active tab (no :hover needed).
+   Higher specificity than the default hidden state, so the squiggle stays
+   fully revealed under the active toggle even when not hovered. */
+.hover-wavy.tab-active::after {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Attention squiggle for the *inactive* tab — a faint blue wave that is always
+   visible (so visitors notice the tab is clickable) and continuously flows left
+   to draw the eye. Hovering brightens it to full opacity via .hover-wavy:hover. */
+@keyframes wavy-flow {
+  to {
+    background-position-x: -8px; /* one full tile of the 8px-wide wave */
+  }
+}
+
+.hover-wavy.tab-attn::after {
+  clip-path: inset(0 0 0 0);
+  opacity: 0.45;
+  animation: wavy-flow 0.9s linear infinite;
+  transition: opacity 0.2s ease-out;
+}
+
+.hover-wavy.tab-attn:hover::after {
+  opacity: 1;
+}
+
+/* Respect users who prefer reduced motion: keep the squiggle visible as an
+   affordance, but stop the continuous flow. */
+@media (prefers-reduced-motion: reduce) {
+  .hover-wavy.tab-attn::after {
+    animation: none;
+  }
 }
 
 /* Auto-apply animated wavy to card titles on card hover.

@@ -53,6 +53,7 @@ export const AboutSection = () => {
               <div className="animate-flip-3 leading-4.5">
                 <span className="block h-4.5">Open Source Contributor</span>
                 <span className="block h-4.5">Full-Stack Developer</span>
+                <span className="block h-4.5">Mobile Developer</span>
                 <span className="block h-4.5">Freelancer</span>
                 <span className="block h-4.5">Open Source Contributor</span>
               </div>

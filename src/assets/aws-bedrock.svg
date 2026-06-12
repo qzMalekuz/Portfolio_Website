@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" role="img" aria-label="Amazon Bedrock">
+  <defs>
+    <linearGradient id="awsBedrockGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C8511B"/>
+      <stop offset="100%" stop-color="#FF9900"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="8" fill="url(#awsBedrockGradient)"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="40" cy="40" r="6"/>
+    <path d="M40 34V22"/>
+    <path d="M40 58V46"/>
+    <path d="M34.8 37 24.4 31"/>
+    <path d="M55.6 49 45.2 43"/>
+    <path d="M34.8 43 24.4 49"/>
+    <path d="M55.6 31 45.2 37"/>
+    <circle cx="40" cy="20" r="4"/>
+    <circle cx="40" cy="60" r="4"/>
+    <circle cx="22.6" cy="30" r="4"/>
+    <circle cx="57.4" cy="50" r="4"/>
+    <circle cx="22.6" cy="50" r="4"/>
+    <circle cx="57.4" cy="30" r="4"/>
+  </g>
+</svg>
