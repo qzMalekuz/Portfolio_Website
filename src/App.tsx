@@ -415,7 +415,7 @@ export function App() {
     },
     {
       id: "luna-ai",
-      title: "Luna AI",
+      title: "Luna - AI Companion",
       category: "mobile" as const,
       description:
         "An unfiltered AI companion chatbot built with React Native and Expo. Powered by OpenAI for natural conversation, with Firebase for accounts and Solana Mobile Wallet Adapter for in-app crypto payments.",
