@@ -49,14 +49,18 @@ import {
 import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { SectionRow } from "./components/ui/SectionRow";
 import { ExperienceItem } from "./components/ui/ExperienceItem";
-import { NameFlip } from "./components/ui/NameFlip";
 import { TechBadge } from "./components/ui/TechBadge";
 import { ProjectsSection } from "./components/projects/ProjectsSection";
 import { AboutSection } from "./components/about/AboutSection";
 import { Footer } from "./components/layout/Footer";
-import { FloatingToolbar } from "./components/ui/FloatingToolbar";
+import { SiteHeader } from "./components/ui/SiteHeader";
 import { PremiumBackground } from "./components/ui/PremiumBackground";
 import { DinoGame } from "./components/ui/DinoGame";
+
+// Height the fixed SiteHeader occupies once condensed (the state it's in while
+// you scroll to an anchor). Anchored sections are scrolled to with this offset
+// subtracted so they land just below the bar instead of under it.
+const HEADER_OFFSET = 72;
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
@@ -68,6 +72,12 @@ export function App() {
     null,
   );
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // Which nav target the current scroll position maps to ("home" | "projects").
+  // Updated by a scroll-spy on the home page so the active nav button tracks
+  // what's actually on screen, not just the last click.
+  const [activeSection, setActiveSection] = useState<"home" | "projects">(
+    "home",
+  );
   // Remember which project category the visitor was viewing so a reload keeps
   // them there. First-time visitors (no stored value) land on "mobile" — it's
   // the primary/default section.
@@ -175,6 +185,60 @@ export function App() {
     }
   }, [currentPath]);
 
+  // The home page is the long scrollable page (everything that isn't /about or
+  // a project-detail route). Project details and /about live on their own
+  // non-root paths, so a root path is always the home page. Only it has the
+  // #home / #projects-overview anchors the scroll-spy watches.
+  const isHomePage = currentPath === "/" || currentPath === "";
+
+  // Scroll-spy: keep the active nav button in sync with what's actually on
+  // screen. The page splits into two nav zones — everything above the projects
+  // cluster maps to "home", the projects cluster (overview/open-source/
+  // hackathons) maps to "projects". We compare the projects anchor's position
+  // against the header line so reaching it (by scroll OR click) flips to
+  // "projects", and scrolling back above it reverts to "home".
+  useEffect(() => {
+    if (!isHomePage) return;
+
+    let ticking = false;
+    const evaluate = () => {
+      ticking = false;
+      const projectsEl = document.getElementById("projects-overview");
+      if (!projectsEl) return;
+      // Once the projects section's top reaches the header line, it's the
+      // active zone. A small buffer below the header avoids flicker right at
+      // the boundary.
+      const reachedProjects =
+        projectsEl.getBoundingClientRect().top <= HEADER_OFFSET + 8;
+      setActiveSection(reachedProjects ? "projects" : "home");
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(evaluate);
+      }
+    };
+
+    evaluate();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [isHomePage]);
+
+  // Smooth-scroll an anchor to just below the fixed header (scrollIntoView would
+  // tuck it under the bar). getBoundingClientRect + scrollY is robust to the
+  // element's current position regardless of what's above it.
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  };
+
   const navigateTo = (path: string, event?: React.MouseEvent) => {
     if (event) event.preventDefault();
     if (path.includes("#")) {
@@ -186,24 +250,30 @@ export function App() {
         setCurrentPath(targetBase);
         setCurrentHash(hash ? `#${hash}` : "");
         if (hash) {
-          setTimeout(() => {
-            document
-              .getElementById(hash)
-              ?.scrollIntoView({ behavior: "smooth" });
-          }, 100);
+          setTimeout(() => scrollToSection(hash), 100);
         }
       } else {
         window.history.pushState({}, "", path);
         setCurrentHash(hash ? `#${hash}` : "");
         if (hash) {
-          document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+          scrollToSection(hash);
         }
       }
     } else {
+      const samePage = currentPath === path;
       window.history.pushState({}, "", path);
       setCurrentPath(path);
       setCurrentHash("");
-      window.scrollTo(0, 0);
+      if (samePage) {
+        // Already on this page (e.g. clicking Home while scrolled down the home
+        // page) — glide back to the top instead of jumping.
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        // Switching to a different page: its content remounts at the top, so a
+        // smooth scroll of the outgoing page would look janky. Land at the top
+        // immediately, then the new page fades in from there.
+        window.scrollTo(0, 0);
+      }
     }
   };
 
@@ -503,39 +573,34 @@ export function App() {
     <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
       <PremiumBackground />
 
-      <nav className="floating-nav fixed bottom-4 left-1/2 z-50 -translate-x-1/2 md:top-1/2 md:right-6 md:bottom-auto md:left-auto md:translate-x-0 md:-translate-y-1/2 lg:right-8">
-        <FloatingToolbar
-          items={[
-            ...menuItems.map((item) => ({
-              id: item.id,
-              label: item.label,
-              icon: item.icon,
-              onClick: (e: React.MouseEvent) => navigateTo(item.targetPath, e),
-            })),
-            {
-              id: "theme",
-              label: isDark ? "Light Mode" : "Dark Mode",
-              icon: isDark ? <SunIcon /> : <MoonIcon />,
-              onClick: toggleTheme,
-            },
-          ]}
-          activeId={
-            currentPath === "/about"
-              ? "about"
-              : currentHash === "#projects-overview" ||
-                  currentHash === "#open-source" ||
-                  currentHash === "#hackathons"
-                ? "projects"
-                : currentPath === "/" || currentPath === ""
-                  ? "home"
-                  : undefined
-          }
-          separator={2}
-        />
-      </nav>
+      <SiteHeader
+        items={[
+          ...menuItems.map((item) => ({
+            id: item.id,
+            label: item.label,
+            icon: item.icon,
+            onClick: (e: React.MouseEvent) => navigateTo(item.targetPath, e),
+          })),
+          {
+            id: "theme",
+            label: isDark ? "Light Mode" : "Dark Mode",
+            icon: isDark ? <SunIcon /> : <MoonIcon />,
+            onClick: toggleTheme,
+          },
+        ]}
+        activeId={
+          currentPath === "/about"
+            ? "about"
+            : isHomePage
+              ? activeSection
+              : undefined
+        }
+        separator={2}
+        onBrandClick={(e) => navigateTo("/", e)}
+      />
 
       {currentPath === "/about" ? (
-        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
+        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-10 px-5 pt-32 pb-24 transition-all sm:px-8 sm:pt-32 md:px-12 md:pt-32 md:pb-20 md:pr-24 lg:px-16 lg:pr-28">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-12">
             <AboutSection />
             <SectionRow title="Technologies">
@@ -571,7 +636,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-10 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 md:pr-24 lg:px-16 lg:pr-28">
+        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-10 px-5 pt-32 pb-24 transition-all sm:px-8 sm:pt-32 md:px-12 md:pt-32 md:pb-20 md:pr-24 lg:px-16 lg:pr-28">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -797,13 +862,14 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-16 px-5 py-16 pb-24 transition-all sm:px-8 sm:py-20 md:px-12 lg:px-16">
+        <main className="relative z-10 mx-auto min-h-[80dvh] max-w-5xl space-y-16 px-5 pt-32 pb-24 transition-all sm:px-8 sm:pt-32 md:px-12 md:pt-32 md:pb-20 lg:px-16">
           <header id="home" className="scroll-mt-24">
             <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
             <div className="flex flex-col">
-            <NameFlip />
-
-            <div className="flex flex-col gap-6 mt-4">
+            {/* The page name lives in the sticky SiteHeader now (it owns the
+                one-and-only flip wordmark + the nav buttons beside it), so the
+                hero starts straight into the bio. */}
+            <div className="flex flex-col gap-6">
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
                 Mobile-First Full-Stack Developer working {" "}
                 <span className="font-medium text-(--text-primary)">

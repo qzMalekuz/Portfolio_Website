@@ -27,12 +27,13 @@ const TABS: { key: Category; label: string }[] = [
 ];
 
 /**
- * One category toggle. Keeps a fixed slot on the header rule. The active tab's
- * label brightens to primary and carries a permanently revealed blue squiggle
- * (`hover-wavy` + `tab-active`). The inactive tab reads as a clear "go here"
- * affordance: a brighter (secondary) label, a trailing arrow that nudges right
- * on hover, and a faint, continuously flowing blue squiggle (`tab-attn`) that
- * draws the eye and brightens to full on hover.
+ * One segment of the category toggle. The whole control reads as a single
+ * physical switch: both options live inside one pill-shaped track, and a
+ * "thumb" (an animated `layoutId` highlight) slides behind whichever option is
+ * active. The thumb uses the portfolio's own selected-state language — the
+ * neutral ink/paper inversion (`bg-(--text-primary)` / `text-(--bg-primary)`),
+ * same as the floating nav and the "Visit Website" button — rather than a
+ * saturated accent. The inactive option stays muted but clearly tappable.
  */
 const ProjectTab = ({
   tab,
@@ -45,23 +46,23 @@ const ProjectTab = ({
 }) => (
   <button
     type="button"
-    aria-pressed={active}
+    role="tab"
+    aria-selected={active}
     onClick={onClick}
-    className={`group/tab hover-wavy${active ? " tab-active" : " tab-attn"} relative inline-flex shrink-0 items-center gap-1.5 px-1 py-1.5 text-[11px] font-bold tracking-[0.18em] uppercase transition-colors duration-200 ease-out focus-visible:outline-none ${
+    className={`relative inline-flex flex-1 items-center justify-center rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.16em] uppercase transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted) sm:flex-none sm:px-5 ${
       active
-        ? "cursor-default text-(--text-primary)"
+        ? "cursor-default text-(--bg-primary)"
         : "cursor-pointer text-(--text-secondary) hover:text-(--text-primary)"
     }`}
   >
-    <span className="relative z-10">{tab.label}</span>
-    {!active && (
-      <span
-        aria-hidden="true"
-        className="relative z-10 text-[13px] leading-none transition-transform duration-200 ease-out group-hover/tab:translate-x-0.5"
-      >
-        →
-      </span>
+    {active && (
+      <motion.span
+        layoutId="project-tab-thumb"
+        className="absolute inset-0 rounded-full bg-(--text-primary) shadow-sm"
+        transition={{ type: "spring", stiffness: 400, damping: 32 }}
+      />
     )}
+    <span className="relative z-10 whitespace-nowrap">{tab.label}</span>
   </button>
 );
 
@@ -93,22 +94,28 @@ export const ProjectsSection = ({
 
   return (
     <div>
-      {/* Toggle header — FullStack fixed left, Mobile fixed right, sharing one
-          rule. A blue squiggle underline marks the active tab. */}
-      <div className="mb-7 flex items-center gap-4">
-        <ProjectTab
-          tab={TABS[0]}
-          active={active === TABS[0].key}
-          onClick={() => onActiveChange(TABS[0].key)}
-        />
+      {/* Toggle header — a single pill-shaped switch holding both categories,
+          centered between two rules so it reads as the obvious control on this
+          section. A blue thumb slides behind the active option. */}
+      <div className="mb-8 flex items-center gap-4">
+        <div className="hidden h-px grow bg-(--border-color) sm:block" />
 
-        <div className="h-px grow bg-(--border-color)" />
+        <div
+          role="tablist"
+          aria-label="Project category"
+          className="flex w-full gap-1 rounded-full border border-(--border-color) bg-(--bg-secondary) p-1 shadow-sm sm:w-auto"
+        >
+          {TABS.map((tab) => (
+            <ProjectTab
+              key={tab.key}
+              tab={tab}
+              active={active === tab.key}
+              onClick={() => onActiveChange(tab.key)}
+            />
+          ))}
+        </div>
 
-        <ProjectTab
-          tab={TABS[1]}
-          active={active === TABS[1].key}
-          onClick={() => onActiveChange(TABS[1].key)}
-        />
+        <div className="hidden h-px grow bg-(--border-color) sm:block" />
       </div>
 
       {/* Animated project list — crossfade + directional slide on category change */}

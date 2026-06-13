@@ -164,17 +164,6 @@ h3 {
   padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
 }
 
-/* On phones the floating nav docks to the bottom-center. Lift it above the home
-   indicator / gesture bar. Scoped below the `md` breakpoint (768px) so it never
-   touches the tablet/desktop layout, where the nav is vertically centered on the
-   right edge (md:bottom-auto). max() keeps the original 1rem gap on devices with
-   no inset. */
-@media (max-width: 767px) {
-  .floating-nav {
-    bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
-  }
-}
-
 .premium-background {
   position: fixed;
   inset: 0;
@@ -361,16 +350,32 @@ h3 {
   .premium-background__blob {
     animation: none;
   }
+  /* Hold the brand flip on its first line ("zafarr.") for motion-sensitive
+     users instead of cycling. */
+  .animate-flip {
+    animation: none;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
+/* Brand flip (header wordmark). The flipping column is always exactly three
+   50px (h-12.5) lines, so the keyframe steps in *exact pixels* rather than
+   percentages — percentage steps land on fractional pixels (50 × 0.3333 ≈
+   16.665px) which makes the text shimmer. Translating on Z and pinning the
+   element to its own compositor layer (will-change / backface-visibility) keeps
+   it off the main paint path, so it stays smooth even while the page scrolls.
+   Each line is 50px; the column scrolls one line per flip: 0 → -50px → -100px. */
 @keyframes text-flip {
-  0%, 45% { transform: translateY(0); }
-  50%, 95% { transform: translateY(-33.33%); }
-  100% { transform: translateY(-66.66%); }
+  0%, 45% { transform: translate3d(0, 0, 0); }
+  50%, 95% { transform: translate3d(0, -50px, 0); }
+  100% { transform: translate3d(0, -100px, 0); }
 }
 
 .animate-flip {
   animation: text-flip 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 @keyframes text-flip-3 {
