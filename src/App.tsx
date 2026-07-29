@@ -118,6 +118,15 @@ export function App() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  // Firefox ignores -webkit-user-drag (index.css), so block image drags here too.
+  useEffect(() => {
+    const onDragStart = (e: DragEvent) => {
+      if ((e.target as HTMLElement).tagName === "IMG") e.preventDefault();
+    };
+    document.addEventListener("dragstart", onDragStart);
+    return () => document.removeEventListener("dragstart", onDragStart);
+  }, []);
+
   // Size the GitHub calendar blocks so a full year (~53 weeks) fits without scrolling.
   const githubBlockMargin = windowWidth < 640 ? 2 : 3;
   const githubBlockSize = (() => {

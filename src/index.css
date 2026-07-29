@@ -7,6 +7,12 @@
   --font-serif: "Instrument Serif", "Times New Roman", serif;
 }
 
+/* Images are decorative here — never draggable. */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 :root {
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
