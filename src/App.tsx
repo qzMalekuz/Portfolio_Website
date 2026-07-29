@@ -15,6 +15,7 @@ import monolithBanner from "./assets/monolith_banner.png";
 // import colosseumFrontierBanner from "./assets/colosseum_frontier.png";
 import kraneAppsLogo from "./assets/krane-apps.png";
 import talkamoreLogo from "./assets/talkamore.png";
+import stealthLogo from "./assets/stealth-startup.svg";
 import kodezillaBanner from "./assets/kodezilla-banner.png";
 import kodezillaRecording from "./assets/kodezilla-recording.mov";
 import playtoBanner from "./assets/playto_banner.png";
@@ -61,6 +62,11 @@ import { DinoGame } from "./components/ui/DinoGame";
 // you scroll to an anchor). Anchored sections are scrolled to with this offset
 // subtracted so they land just below the bar instead of under it.
 const HEADER_OFFSET = 72;
+
+// Keyword highlight inside experience bullets — same emphasis as the hero copy.
+const Hl = ({ children }: { children: React.ReactNode }) => (
+  <span className="font-medium text-(--text-primary)">{children}</span>
+);
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
@@ -895,7 +901,11 @@ export function App() {
                 <span className="font-medium text-(--text-primary)">
                   $1,000+
                 </span>{" "}
-                across the dApp stores. Currently building{" "}
+                across the dApp stores. Currently a{" "}
+                <span className="font-medium text-(--text-primary)">
+                  Founding Engineer at a Stealth Startup
+                </span>
+                , previously built{" "}
                 <a
                   href="https://talkamore.com"
                   target="_blank"
@@ -903,8 +913,8 @@ export function App() {
                   className="font-medium wavy-link"
                 >
                   Talkamore
-                </a>
-                , and built{" "}
+                </a>{" "}
+                and{" "}
                 <a
                   href="https://github.com/qzMalekuz/SolPin-Arcade"
                   target="_blank"
@@ -1021,11 +1031,37 @@ export function App() {
           <SectionRow title="Experience" id="experience">
             <div className="flex flex-col gap-8 scroll-mt-24">
               <ExperienceItem
+                logo={stealthLogo}
+                company="Stealth AI"
+                role="Founding Engineer"
+                period="Jul 2026 — Present"
+                location="Hybrid"
+                bullets={[
+                  <>
+                    Building <Hl>React Native</Hl> and <Hl>Swift</Hl> mobile
+                    apps end-to-end for <Hl>iOS</Hl> and Android - from
+                    payments with <Hl>RevenueCat</Hl> through{" "}
+                    <Hl>App Store</Hl> and <Hl>Play Store</Hl> submission.
+                  </>,
+                  <>
+                    Owning the backends powering the apps, shipping with{" "}
+                    <Hl>Expo</Hl>, <Hl>EAS Build</Hl>, and <Hl>Xcode</Hl>.
+                  </>,
+                  <>
+                    Building <Hl>Meta Ads</Hl>{" "}
+                    <Hl>automation pipelines</Hl> in <Hl>Python</Hl>.
+                  </>,
+                ]}
+              />
+
+              <div className="h-px w-full bg-(--border-color)" />
+
+              <ExperienceItem
                 logo={talkamoreLogo}
                 company="Talkamore"
                 role="Founding Engineer"
                 href="https://talkamore.com/"
-                period="Apr 2026 — Present"
+                period="Apr 2026 — Jun 2026"
                 location="Remote"
                 bullets={[
                   "Built and designed the product end-to-end across web and mobile for both App Store and Play Store.",

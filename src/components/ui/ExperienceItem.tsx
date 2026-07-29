@@ -9,6 +9,8 @@
  * of the company name on the same header row rather than dropping beneath it —
  * company/location on the left, dates/designation right-aligned opposite them.
  */
+import type { ReactNode } from "react";
+
 export const ExperienceItem = ({
   logo,
   company,
@@ -18,45 +20,63 @@ export const ExperienceItem = ({
   location,
   bullets,
 }: {
-  logo: string;
+  logo?: string;
   company: string;
   role: string;
-  href: string;
+  href?: string;
   period: string;
   location?: string;
-  bullets: string[];
+  bullets: ReactNode[];
 }) => {
+  const logoImg = logo ? (
+    <img
+      src={logo}
+      alt={company}
+      className="w-9 h-9 rounded-lg border border-(--border-color) shadow-sm"
+    />
+  ) : (
+    // ponytail: letter avatar for logo-less (stealth) companies
+    <span className="flex w-9 h-9 items-center justify-center rounded-lg border border-(--border-color) bg-(--text-primary) text-sm font-bold text-(--bg-primary) shadow-sm">
+      {company.charAt(0)}
+    </span>
+  );
   return (
     <div className="group grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-[minmax(140px,1fr)_minmax(0,2.4fr)]">
       {/* Left rail — logo, company, location. On mobile the period + role are
           pulled up to the right of the company name (see below). */}
       <div className="flex flex-col">
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mb-3 w-fit"
-        >
-          <img
-            src={logo}
-            alt={company}
-            className="w-9 h-9 rounded-lg border border-(--border-color) shadow-sm"
-          />
-        </a>
+        {href ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-3 w-fit"
+          >
+            {logoImg}
+          </a>
+        ) : (
+          <span className="mb-3 w-fit">{logoImg}</span>
+        )}
 
         {/* Header row: company/location on the left; on mobile the date and
             designation sit right-aligned opposite them. They move into the
             middle column on sm+ so the desktop grid layout is unchanged. */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 flex-col">
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-fit text-[15px] font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight"
-            >
-              <span className="hover-wavy">{company}</span>
-            </a>
+            {href ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-fit text-[15px] font-bold text-(--text-primary) hover:text-(--text-highlight) transition-colors leading-tight"
+              >
+                <span className="hover-wavy">{company}</span>
+              </a>
+            ) : (
+              <span className="inline-flex w-fit text-[15px] font-bold text-(--text-primary) leading-tight">
+                {company}
+              </span>
+            )}
             {location && (
               <span className="mt-1 text-[13px] font-medium text-(--text-muted)">
                 {location}
