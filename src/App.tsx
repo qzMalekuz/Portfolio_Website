@@ -564,6 +564,8 @@ export function App() {
     { name: "WebSockets", colorClass: "" },
     { name: "Solana", colorClass: "" },
     { name: "React Native", colorClass: "badge-react" },
+    { name: "Swift", colorClass: "" },
+    { name: "Xcode", colorClass: "" },
     { name: "Docker", colorClass: "badge-docker" },
     { name: "Python", colorClass: "" },
     { name: "C++", colorClass: "" },
