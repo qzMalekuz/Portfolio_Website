@@ -33,6 +33,7 @@ const TECH_ICONS: Record<string, { icon: string; color: string; url?: string }> 
   "TanStack Query": { icon: "reactquery", color: "#ff4154" },
   Auth0:        { icon: "auth0",       color: "#eb5424" },
   Xcode:        { icon: "xcode",       color: "#147efb" },
+  Swift:        { icon: "swift",       color: "#f05138" },
   SuperMemory:  { icon: "supermemory", color: "#ffffff", url: "https://avatars.githubusercontent.com/u/171979587?v=4&s=40" },
   RevenueCat:   { icon: "revenuecat",  color: "#f25a5a" },
   "pi SDK":     { icon: "pi",          color: "#ffffff", url: "https://avatars.githubusercontent.com/u/173290518?v=4&s=40" },

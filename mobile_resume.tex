@@ -4,7 +4,7 @@
 % Mobile Developer Focus
 %-------------------------
 
-\documentclass[letterpaper,11pt]{article}
+\documentclass[letterpaper,10pt]{article}
 
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
@@ -13,12 +13,14 @@
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{verbatim}
 \usepackage{enumitem}
+\setlist[itemize]{itemsep=2pt, topsep=5pt, parsep=0pt, partopsep=0pt}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \usepackage{fontawesome5}
-\input{glyphtounicode}
+% glyphtounicode is pdfTeX-only; skip under XeTeX (tectonic)
+\ifdefined\pdfgentounicode\input{glyphtounicode}\fi
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -31,7 +33,7 @@
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1in}
 \addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
+\addtolength{\textheight}{1.4in}
 
 \urlstyle{same}
 \raggedbottom
@@ -43,7 +45,7 @@
   \vspace{-4pt}\scshape\raggedright\large
 }{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
 
-\pdfgentounicode=1
+\ifdefined\pdfgentounicode\pdfgentounicode=1\fi
 
 %-------------------------
 % Custom commands
@@ -91,14 +93,23 @@
 
 %-----------ABOUT ME-----------
 \section{About Me}
-React Native developer with \textbf{shipped, live, revenue-generating apps} on the DApp Store — each with \textbf{10,000+ downloads} and active user ratings. Experienced in cross-platform mobile development, blockchain wallet integration, real-time data handling, and smooth UI/UX across Android and iOS.
+React Native developer with \textbf{shipped, live, revenue-generating apps} on the DApp Store, each with \textbf{10,000+ downloads} and active user ratings. Experienced in cross-platform mobile development, blockchain wallet integration, real-time data handling, and smooth UI/UX across Android and iOS.
 
 %-----------EXPERIENCE-----------
 \section{Experience}
   \resumeSubHeadingListStart
 
     \resumeSubheading
-      {Talkamore}{April 2026 -- Present}
+      {Stealth AI Startup}{July 2026 -- Present}
+      {Founding Engineer}{Hybrid}
+      \resumeItemListStart
+        \resumeItem{Building React Native and Swift mobile apps end-to-end for iOS and Android, from payments with RevenueCat through App Store and Play Store submission.}
+        \resumeItem{Owning the backends powering the apps, shipping with Expo, EAS Build, and Xcode.}
+        \resumeItem{Building Meta Ads automation pipelines in Python.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Talkamore}{April 2026 -- June 2026}
       {Founding Engineer}{Remote}
       \resumeItemListStart
         \resumeItem{Built and designed the product end-to-end across web and mobile for both App Store and Play Store.}
@@ -158,8 +169,8 @@ React Native developer with \textbf{shipped, live, revenue-generating apps} on t
 \section{Technical Skills}
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
-     \textbf{Mobile}{: React Native, Expo, EAS Build, Mobile Wallet Adapter (MWA)} \\
-     \textbf{Languages}{: TypeScript, JavaScript, Python} \\
+     \textbf{Mobile}{: React Native, Swift, Expo, EAS Build, Xcode, RevenueCat, Mobile Wallet Adapter (MWA)} \\
+     \textbf{Languages}{: TypeScript, JavaScript, Swift, Python} \\
      \textbf{State \& Data}{: REST APIs, WebSockets, Async handling, Prisma, PostgreSQL} \\
      \textbf{Web / Backend}{: React.js, Next.js, Node.js, Express.js, Docker, AWS, CI/CD} \\
     }}
