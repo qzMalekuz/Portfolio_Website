@@ -21,8 +21,8 @@ import kodezillaRecording from "./assets/kodezilla-recording.mov";
 import playtoBanner from "./assets/playto_banner.png";
 import lunaBanner from "./assets/luna_banner.png";
 import nearmeBanner from "./assets/nearme_banner.png";
-import fullstackResumePdf from "./assets/JUNE_RESUME_FS.pdf";
-import mobileResumePdf from "./assets/JUNE_RESUME_MOBILE.pdf";
+import fullstackResumePdf from "./assets/fs_resume.pdf";
+import mobileResumePdf from "./assets/mobile_resume.pdf";
 import testspriteBanner from "./assets/testsprite_banner.png";
 import screenshot1 from "./assets/screenshot1.png";
 import screenshot2 from "./assets/screenshot2.png";
@@ -888,12 +888,16 @@ export function App() {
                 hero starts straight into the bio. */}
             <div className="flex flex-col gap-6">
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
-                Mobile-First Full-Stack Developer working {" "}
+                Mobile-First Full-Stack Developer and{" "}
+                <span className="font-medium text-(--text-primary)">
+                  Product Designer
+                </span>{" "}
+                working{" "}
                 <span className="font-medium text-(--text-primary)">
                   remotely
                 </span>
-                . I ship production apps end-to-end — from system design and
-                role-based platforms to{" "}
+                . I design and ship production apps end-to-end — from system
+                design and role-based platforms to{" "}
                 <span className="font-medium text-(--text-primary)">
                   Google Play
                 </span>{" "}
@@ -1061,6 +1065,10 @@ export function App() {
                   <>
                     Building <Hl>Meta Ads</Hl>{" "}
                     <Hl>automation pipelines</Hl> in <Hl>Python</Hl>.
+                  </>,
+                  <>
+                    <Hl>Product designer</Hl> for both the mobile and web
+                    apps — owning the UX and interface design end-to-end.
                   </>,
                 ]}
               />
